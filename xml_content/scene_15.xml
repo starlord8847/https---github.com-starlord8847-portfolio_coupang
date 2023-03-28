@@ -1,0 +1,70 @@
+<krpano>
+
+    <events name='event_scene_15'
+        onnewpano='insert_script(script_16); narration_start();'
+        onremovepano='stop_sound(); stop_script();'
+    />
+
+    <array name='script_16'>
+        <line name='line_0' text='마지막으로, 남은 롤테이너를 이동해보도록 하겠습니다.' />
+        <line name='line_1' text='왼쪽 롤테이너를 클릭해주세요.' />
+    </array>
+
+    <action name='narration_start'>
+        play_script();
+        playsound(narration_15, get(sound_source[narration_15].url), false, 1, setting_visible_alpha());
+    </action>
+
+    <action name='stop_sound'>
+        if(sound[narration_15], sound[narration_15].stop());
+    </action>
+
+    <action name='setting_visible_alpha'>
+        tween(hotspot[left_roll_btn].alpha, 1);
+        set(hotspot[choice_rt_2].visible, true);
+    </action>
+
+    <layer name='back_btn'
+        style='st_back_btn'
+        onclick.addevent='
+            loadscene(scene_20, , ,colorblend(0.5, 0x000000));
+        '
+    />
+
+    <layer name='RT_title' url='%ROOT%/assets/rt/1_title.png'
+        style='st_small_title'
+    />
+
+    <hotspot name='left_roll_btn' url='%ROOT%/assets/rt/click.png'
+        style='st_roll|style_drag_hotspot_distortion'
+        enabled='true'
+        distorted='true'
+        scale='0.5'
+        alpha='0'
+        onup='tween(oy, -10, 0.5, ,ondown());'
+        ondown='tween(oy, 10, 0.5, , onup());'
+        onloaded='onup();'
+        ath="-48.4653465353" atv="-21.7759917127"
+        onclick='
+            playsound(click, get(sound_source[click].url), false, 1);
+            lookto(-47.60435762834664, 0);
+            loadscene(scene_21, , ,colorblend(0.5, 0x000000));
+        '
+    />
+
+    
+
+    <hotspot name='choice_rt_2'
+        style='st_poly_point'
+        onclick.addevent='
+            playsound(click, get(sound_source[click].url), false, 1);
+            lookto(-47.60435762834664, 0);
+            loadscene(scene_21, , ,colorblend(0.5, 0x000000));
+        '
+    >
+        <point ath="-56.421927615801394" atv="-6.8704733757062675"/>
+        <point ath="-39.87747812405041" atv="-6.822545417272953"/>
+        <point ath="-39.20042659354215" atv="19.507945229698517"/>
+        <point ath="-56.494993595382994" atv="19.576148825994608"/>
+    </hotspot>
+</krpano>

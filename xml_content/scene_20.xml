@@ -1,0 +1,379 @@
+<krpano>
+    <events name='event_scene_20'
+        onnewpano='
+            insert_script(script_20_1);
+            delayedcall(1,
+                narration_start();
+            );
+            show_check(); change_html();
+        '
+        onremovepano='stop_sound(); hide_check();'
+        onviewchange='copy(hotspot[next_btn].ath, view.hlookat);'
+    />
+
+    <array name='script_20'>
+        <line name='line_0' text='롤테이너 관련 사고 중 발 끼임 사고가 가장 빈번합니다.' />
+        <line name='line_1' text='롤테이너 취급시, 특히 롤테이너를 당겨서 이동할 때는' />
+        <line name='line_2' text='항상 발 끼임에 주의합니다.' />
+    </array>
+
+    <array name='script_20_1'>
+        <line name='line_0' text='롤테이너를 당겨서 이동할 경우 발생할 수 있는 위험 요소에 대해' />
+        <line name='line_1' text='알아보겠습니다. 화면에 보이는 위험 요소를 클릭하여 내용을' />
+        <line name='line_2' text='확인해주세요.' />
+    </array>
+
+    <array name='script_20_2'>
+        <line name='line_0' text='휴대전화를 보면서 롤테이너를 취급하는 것은 눈을 감고' />
+        <line name='line_1' text='일을 하는 것과 같습니다. 롤테이너 취급 시에는 항상 발 끼임과' />
+        <line name='line_2' text='이동 경로 상 장애물과 다른 사람들을 신경 써야 합니다.' />
+    </array>
+
+    <array name='script_20_3'>
+        <line name='line_0' text='한손으로 롤테이너를 당기는 경우 사고 위험이 높으므로, 항상' />
+        <line name='line_1' text='두 손으로 잡고 취급합니다.' />
+    </array>
+
+    <action name='narration_start'>
+        play_script();
+        playsound(narration_20_1, get(sound_source[narration_20_1].url), false, 1, set(hotspot[correct_video].enabled, true));
+    </action>
+
+    <action name='stop_sound'>
+        if(sound[narration_20_1], sound[narration_20_1].stop());
+        if(sound[narration_20], sound[narration_20].stop());
+    </action>
+
+    <layer name='back_btn'
+        style='st_back_btn'
+        onclick.addevent='
+            loadscene(scene_19, , ,colorblend(0.5, 0x000000));
+        '
+    />
+
+    <layer name='RT_title' url='%ROOT%/assets/rt/1_title.png'
+        style='st_small_title'
+    />
+
+    <layer name='RT_question_2'
+        url='%ROOT%/assets/rt/scene_20/RT_question_2.png'
+        style='st_questions'
+        script='script_25_1'
+    />
+
+    <!-- <hotspot name='exit_video_2' url='%ROOT%/assets/_common/exit_video.png'
+        style='st_exit'
+        ath="0" atv="62"
+        ox='0' oy='-195'
+        linkedhotspot='foot_exp'
+        onloaded.addevent='delayedcall(1, set(ox, calc(20 + hotspot[foot_rule].width*hotspot[foot_rule].scale/2 + width*scale/2)););'
+        onclick='callwith(hotspot[foot_rule], onclick(); );'
+    /> -->
+
+    <hotspot name='foot_exp'
+        style='st_icon_exp|style_drag_hotspot_distortion'
+        enabled='true'
+        alpha='1' autoalpha="true"
+        script='script_20'
+        click='true'
+        ath="0" atv="62" scale="0.1"
+        linkedhotspot='foot_rule'
+        linkedhotspot_2='foot_video'
+        linkedhotspot_3='exit_video_2'
+        onclick.addevent='
+            callwith(hotspot[foot_video], onclick());
+            looktohotspot(foot_rule, 120);
+            set(enabled, false);
+            set(hotspot[left_exp].enabled, false);
+            set(hotspot[right_exp].enabled, false);
+            stop_script();
+            stop_sound();
+            if(click == true,
+                insert_script(get(script));
+                play_script();
+                playsound(narration_20, get(sound_source[narration_20].url), false, 1, enabled_setting1());
+                set(click, false);
+            );
+        '
+    />
+
+    <hotspot name='foot_rule' url='%ROOT%/assets/rt/scene_20/scene_20_rule_2.png'
+        style='st_20'
+        check='false'
+        linkedhotspot='foot_exp'
+        ath="-0" atv="53.3324315970"
+        ox='' oy='-20'
+        onclick='
+            callwith(hotspot[foot_video], newclick());
+            switch(hotspot[foot_video].alpha, 0, 1);
+            switch(hotspot[exit_video_2].alpha, 0, 1);
+            switch(alpha, 0, 1);
+            set(checked, true);
+            set(check, true);
+            set(enabled, false); set(alpha, 0);
+            set(hotspot[foot_exp].enabled, true);
+            set(hotspot[foot_exp].click, true);
+            set(hotspot[left_exp].enabled, true);
+            set(hotspot[right_exp].enabled, true);
+            tween(hotspot[foot_btn].alpha, 0);
+
+            checked_icon();
+            play_next();
+        '
+    />
+
+    <hotspot name='foot_video'
+        style='st_rules_video|st_20'
+        videourl='%ROOT%/assets/video/RT_video/RT_2_foot.mp4'
+        posturl='%ROOT%/assets/video/RT_video/RT_2_foot.jpg'
+        handcursor='false'
+        alpha='0'
+        scale='0.25'
+        ath="0" atv="53.3324315970"
+        linkedhotspot='foot_exp'
+        onloaded.addevent='delayedcall(2, set(ox, calc(hotspot[foot_rule].width*hotspot[foot_rule].scale/2 + width*scale/2)););'
+    />
+
+    <!-- <hotspot name='exit_video_1' url='%ROOT%/assets/_common/exit_video.png'
+        style='st_exit'
+        ath="-38.8869557366" atv="1.4"
+        ox='0' oy='-108'
+        linkedhotspot='left_exp'
+        onloaded.addevent='delayedcall(1, set(ox, calc(10 + hotspot[phone_rule].width*hotspot[phone_rule].scale/2 + width*scale/2)););'
+        onclick='callwith(hotspot[phone_rule], onclick(); );'
+    /> -->
+
+    <hotspot name='left_exp'
+        style='st_icon_exp|style_drag_hotspot_distortion'
+        tag='icon_exp'
+        alpha='1' autoalpha="true"
+        script='script_20_2'
+        click='true'
+        ath="-41.9608446970" atv="1.4" scale="0.1"
+        linkedhotspot='phone_rule'
+        linkedhotspot_2='phone_video'
+        linkedhotspot_3='exit_video_1'
+        onclick.addevent='
+            callwith(hotspot[phone_video], onclick());
+            set(enabled, false);
+            set(hotspot[foot_exp].enabled, false);
+            set(hotspot[right_exp].enabled, false);
+            stop_script();
+            stop_sound();
+            if(click == true,
+                insert_script(get(script));
+                play_script();
+                playsound(narration_20_2, get(sound_source[narration_20_2].url), false, 1, enabled_setting2());
+                set(click, false);
+            );
+        '
+    />
+
+    <hotspot name='phone_rule' url='%ROOT%/assets/rt/scene_20/scene_20_rule_1.png'
+        style='st_20'
+        check='false'
+        linkedhotspot='left_exp'
+        ath="-41.9608446970" atv="1.4"
+        ox='' oy='-20'
+        onclick='
+            callwith(hotspot[phone_video], newclick());
+            switch(hotspot[phone_video].alpha, 0, 1);
+            switch(hotspot[exit_video_1].alpha, 0, 1);
+            switch(alpha, 0, 1);
+            set(checked, true);
+            set(check, true);
+            set(enabled, false); set(alpha, 0);
+            set(hotspot[left_exp].enabled, true);
+            set(hotspot[left_exp].click, true);
+            set(hotspot[foot_exp].enabled, true);
+            set(hotspot[right_exp].enabled, true);
+            tween(hotspot[left_btn].alpha, 0);
+
+            checked_icon();
+            play_next();
+        '
+    />
+
+    <hotspot name='phone_video'
+        style='st_rules_video|style_drag_hotspot_distortion'
+        videourl='%ROOT%/assets/video/RT_video/RT_2_phone.mp4'
+        posturl='%ROOT%/assets/video/RT_video/RT_2_phone.jpg'
+        handcursor='false'
+        alpha='0' autoalpha="true"
+        distorted='true'
+        capture='false'
+        checked='false'
+        ath="-41.9608446970" atv="1.4"
+        scale='0.25'
+        linkedhotspot='left_exp'
+        onloaded.addevent='delayedcall(2, set(ox, calc(hotspot[phone_rule].width*hotspot[phone_rule].scale/2 + width*scale/2)););'
+    />
+
+    <!-- <hotspot name='exit_video_3' url='%ROOT%/assets/_common/exit_video.png'
+        style='st_exit'
+        ath="35.3671015638" atv="1.4"
+        ox='0' oy='-108'
+        linkedhotspot='left_exp'
+        onloaded.addevent='delayedcall(1, set(ox, calc(10 + hotspot[phone_rule].width*hotspot[phone_rule].scale/2 + width*scale/2)););'
+        onclick='callwith(hotspot[right_rule], onclick(); );'
+    /> -->
+
+    <hotspot name='right_exp'
+        style='st_icon_exp|style_drag_hotspot_distortion'
+        tag='icon_exp'
+        alpha='1' autoalpha="true"
+        script='script_20_3'
+        click='true'
+        ath="35.3671015638" atv="1.4" scale="0.1"
+        linkedhotspot='right_rule'
+        linkedhotspot_2='right_video'
+        linkedhotspot_3='exit_video_3'
+        onclick.addevent='
+            callwith(hotspot[right_video], onclick());
+            set(enabled, false);
+            set(hotspot[foot_exp].enabled, false);
+            set(hotspot[left_exp].enabled, false);
+            stop_script();
+            stop_sound();
+            if(click == true,
+                insert_script(get(script));
+                play_script();
+                playsound(narration_20_3, get(sound_source[narration_20_3].url), false, 1, enabled_setting3());
+                set(click, false);
+            );
+        '
+    />
+
+    <hotspot name='right_rule' url='%ROOT%/assets/rt/scene_20/scene_20_rule_3.png'
+        style='st_20'
+        check='false'
+        linkedhotspot='right_exp'
+        ath="35.3671015638" atv="1.4" scale='0.54'
+        ox='' oy='-20'
+        onclick='
+            callwith(hotspot[right_video], newclick());
+            switch(hotspot[right_video].alpha, 0, 1);
+            switch(hotspot[exit_video_3].alpha, 0, 1);
+            switch(alpha, 0, 1);
+            set(checked, true);
+            set(check, true);
+            set(enabled, false); set(alpha, 0);
+            set(hotspot[right_exp].enabled, true);
+            set(hotspot[right_exp].click, true);
+            set(hotspot[foot_exp].enabled, true);
+            set(hotspot[left_exp].enabled, true);
+            tween(hotspot[right_btn].alpha, 0);
+
+            checked_icon();
+            play_next();
+        '
+    />
+
+    <hotspot name='right_video'
+        style='st_rules_video|style_drag_hotspot_distortion'
+        videourl='%ROOT%/assets/video/RT_video/RT_1_correct.mp4'
+        posturl='%ROOT%/assets/video/RT_video/RT_1_correct.jpg'
+        handcursor='false'
+        alpha='0' autoalpha="true"
+        distorted='true'
+        capture='false'
+        checked='false'
+        ath="35.3671015638" atv="1.4"
+        scale='0.25'
+        linkedhotspot='right_exp'
+        onloaded.addevent='delayedcall(2, set(ox, calc(hotspot[right_rule].width*hotspot[right_rule].scale/2 + width*scale/2)););'
+    />
+
+    <hotspot name='foot' url='%ROOT%/assets/rt/scene_20/foot.png'
+        style='style_drag_hotspot_distortion'
+        alpha='1' autoalpha="true"
+        enabled='false'
+        distorted='true'
+        capture='true'
+        checked='false'
+        rotate='0'
+        oy='150'
+        ath="-4.7038417143" atv="88.6681134287" scale="0.20" rx="-16.579999999999938" ry="-9.11999999999999" rz="0"
+        linkedhotspot='foot_video'
+    />
+
+    <hotspot name='left_btn' url='%ROOT%/assets/rt/click.png'
+        style='st_roll|style_drag_hotspot_distortion'
+        enabled='true'
+        distorted='false'
+        alpha='0'
+        onup='stoptween(oy); tween(oy, -10, 0.5, ,ondown());'
+        ondown='stoptween(oy); tween(oy, 10, 0.5, , onup());'
+        onloaded='onup();'
+        ath="-41.9608446970" atv="-22.7539275631" scale="0.5"
+    />
+
+    <hotspot name='right_btn' url='%ROOT%/assets/rt/click.png'
+        style='st_roll|style_drag_hotspot_distortion'
+        enabled='true'
+        distorted='false'
+        alpha='0'
+        onup='stoptween(oy); tween(oy, -10, 0.5, ,ondown());'
+        ondown='stoptween(oy); tween(oy, 10, 0.5, , onup());'
+        onloaded='onup();'
+        ath="36.7749618817" atv="-22.7808413013" scale="0.5"
+    />
+
+    <hotspot name='foot_btn' url='%ROOT%/assets/rt/click.png'
+        style='st_roll|style_drag_hotspot_distortion'
+        enabled='true'
+        distorted='false'
+        alpha='0'
+        onup='stoptween(oy); tween(oy, -10, 0.5, ,ondown());'
+        ondown='stoptween(oy); tween(oy, 10, 0.5, , onup());'
+        onloaded='onup();'
+        ath="1.4484998527" atv="30.2565043209" scale="0.5"
+    />
+
+    <!-- <hotspot name='center_rule' url='%ROOT%/assets/0_intro/bg_left.png'
+        style='st_rules|style_drag_hotspot_distortion'
+        ath="-0.8168082792" atv="49.3616993753"
+        linkedhotspot='center_exp'
+        onclick.addevent='
+            switch(alpha, 0, 1);
+            checked_icon();
+        '
+    /> -->
+
+    <action name='enabled_setting1' scope='local'>
+        set(hotspot[foot_rule].enabled,true);
+        set(hotspot[exit_video_2].enabled, true);
+
+        tween(hotspot[foot_btn].alpha, 1);
+    </action>
+
+    <action name='enabled_setting2' scope='local'>
+        set(hotspot[phone_rule].enabled,true);
+        set(hotspot[exit_video_1].enabled, true);
+
+        tween(hotspot[left_btn].alpha, 1);
+    </action>
+
+    <action name='enabled_setting3' scope='local'>
+        set(hotspot[right_rule].enabled,true);
+        set(hotspot[exit_video_3].enabled, true);
+
+        tween(hotspot[right_btn].alpha, 1);
+    </action>
+
+    <action name='play_next' scope='local'>
+        if(hotspot[foot_rule].check == true AND hotspot[phone_rule].check == true AND hotspot[right_rule].check == true,
+            tween(hotspot[next_btn].alpha, 1);
+            insert_script(get(hotspot[next_btn].script));
+            play_script();
+            playsound(narration_next, get(sound_source[narration_next].url), false, 1);
+        );
+    </action>
+
+    <hotspot name='next_btn' 
+        style='st_next_btn|style_drag_hotspot_distortion'
+        script='script_next'
+        ath="-4.5013052754" atv="25" scale="0.4"
+        linkedscene='scene_15'
+    />
+</krpano>

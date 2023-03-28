@@ -1,0 +1,362 @@
+<krpano>
+
+<!-- 공용 이벤트 -->
+    <events name='event_common'
+        onnewpano='
+            delayedcall(0.5,
+                change_html();
+            );
+        '
+    />
+
+<!-- 공용 스타일 -->
+    <style name="st_video"
+        url.html5="%ROOT%/plugins/videoplayer.js"
+        url.flash="%ROOT%/plugins/videoplayer.swf"
+        edge='center'
+        align="center"
+        capture='false'
+        distorted="true"
+        muted='false'
+		pausedonstart="true"
+		loop="false"
+		autoresume='true'
+		volume="1.0"
+        enabled='true'
+        handcursor='false'
+        onclick='togglepause()'
+    />
+
+    <style name='st_rules_video'
+        url.html5="%CURRENTXML%/plugins/videoplayer.js"
+        url.flash="%CURRENTXML%/plugins/videoplayer.swf"
+		edge='center'
+		align='center'
+        alpha='0'
+        scale="0.3" 
+		distorted="true"
+		muted='true'
+		pausedonstart="true"
+		loop="true"
+		autoresume='true'
+		volume="1.0"
+        enabled='false'
+        capture='false'
+        onclick='play();'
+        newclick='stop();'
+    />
+
+    <style name='st_rules'
+        distorted='true'
+        align='center'
+        edge='center'
+        scale='0.3'
+        enabled='true'
+        capture='true'
+        alpha='0' autoalpha='true'
+        handcursor='true'
+    />
+
+    <style name='st_poly_point'
+        alpha='1'
+        visible='false' 
+        enabled='true' 
+        capture='false' 
+        handcursor='true' 
+        fillcolor='0xffffff'
+        bordercolor='0xffffff'
+        onshow='tween(alpha, 1, , , onhide());' 
+        onhide='tween(alpha, 0.3, , , onshow());' 
+        onloaded='
+                onshow();
+        '
+    />
+
+    <!-- html5controls="true"
+    renderer="css3d"  -->
+
+    <style name='st_answer'
+        enabled='true'
+        capture='true'
+        distorted='false'
+        edge='center'
+        align='center'
+        scale='0.5'
+        alpha='0' autoalpha='true'
+    />
+
+    <style name='st_next_btn'
+        url='%ROOT%/assets/_common/button_next.png'
+        org_url='%ROOT%/assets/_common/button_next.png'
+        change_url='%ROOT%/assets/_common/button_next_over.png'
+        autoalpha='1'
+        alpha='0'
+        scale='0.4'
+        capture='true'
+        zoom='true'
+        onover='copy(url, change_url);'
+        onout='copy(url, org_url);'
+        onclick='loadscene(get(linkedscene), , ,colorblend(0.5, 0x000000)); playsound(click, get(sound_source[click].url), false, 1);'
+        zorder="999"
+    />
+
+    <style name='st_roll'
+        scale='0.1'
+        alpha='1' autoalpha="true"
+        distorted='false'
+        capture='true'
+        enabled='true'
+    />
+
+    <style name='st_icon_exp'
+        url='%ROOT%/assets/_common/icon_exp.png'
+        change_url='%ROOT%/assets/_common/icon_exp_checked.png'
+        tag='icon_exp'
+        scale='0.1'
+        alpha='1' autoalpha="true"
+        distorted='false'
+        capture='true'
+        checked='false'
+        rotate='0'
+        onleft='stoptween(rotate); tween(rotate, 5,,, onright())'
+        onright='stoptween(rotate); tween(rotate, -5,,, onleft())'
+        onloaded='onleft();'
+        ready='true'
+        onchecked='
+            if(checked,
+                copy(url, change_url);
+            );
+        '
+        onclick='
+            playsound(click_2, get(sound_source[click_2].url), false, 1);
+            looktohotspot(get(name),120); set(checked, true); onchecked();
+            switch(hotspot[get(linkedhotspot)].alpha, 0, 1);
+            if(hotspot[get(linkedhotspot_2)],
+                switch(hotspot[get(linkedhotspot_2)].alpha, 0, 1); 
+            );
+            if(hotspot[get(linkedhotspot_3)],
+                switch(hotspot[get(linkedhotspot_3)].alpha, 0, 1); 
+            );
+        '
+    />
+
+    <style name='st_20'
+        scale='0.72'
+        alpha='0'
+        distorted='true'
+        enabled='false'
+        capture='false'
+        align='center'
+        edge='center'
+    />
+
+    <style name='st_element_32'
+        tag='icon_exp'
+        alpha='0.5'
+        enabled='false'
+        capture='false'
+        distorted='true'
+        checked='false'
+
+        onchecked='
+            if(checked,
+                copy(url, change_url);
+            );
+        '
+        onclick='
+            playsound(click_2, get(sound_source[click_2].url), false, 1); 
+            looktohotspot(get(name),120); set(checked, true);
+            switch(hotspot[get(linkedhotspot)].alpha, 0, 1);
+            if(hotspot[get(linkedhotspot_2)],
+                switch(hotspot[get(linkedhotspot_2)].alpha, 0, 1); 
+            );
+        '
+    />
+
+    <style name='st_exit'
+        enabled='false'
+        zorder="999"
+        scale='0.5'
+        alpha='0'
+        distorted='true'
+    />
+
+        <!-- onover='tween(alpha, 0.7);'
+        onout='tween(alpha, 0);' -->
+
+    <!-- rotate='0'
+        onleft='stoptween(rotate); tween(rotate, 5,,, onright())'
+        onright='stoptween(rotate); tween(rotate, -5,,, onleft())'
+        onloaded='onleft();' -->
+
+    <style name='st_small_title'
+        tag='small_title'
+        enabled='false'
+        captuer='false'
+        x='15' y='15'
+        scale='0.23'
+    />
+
+    <style name='st_small_titlee'
+        tag='small_title'
+        enabled='false'
+        captuer='false'
+        x='10' y='10'
+        scale='0.5'
+    />
+
+    <style name='st_back_btn' url='%ROOT%/assets/_common/back_btn.png'
+        enabled='true'
+        align='leftbottom'
+        edge='leftbottom'
+        scale='0.35'
+        ox='15' oy='-15'
+        onover='tween(scale, 0.39, , , onsmall());'
+        onout='tween(scale, 0.35, , , onbig());'
+        onclick='playsound(click, get(sound_source[click].url), false, 1);'
+    />
+
+    <style name='st_btn'
+        tag='btn'
+        distorted='true'
+        enabled='true'
+        visible='false'
+        checked='true'
+        checkedd='false'
+        clicked='false'
+        fliped='false'
+        alpha='0'
+        onover='tween(scale, 0.33);'
+        onout='tween(scale, 0.32);'
+        rx='0' ry='0'
+        ath="0" atv="0" scale='0.32'
+    />
+
+    <style name='st_questions'
+        align='righttop'
+        edge='righttop'
+        enabled='false'
+        scale='0.23'
+        oy='15' ox='-15'
+    />
+
+<!-- 공용 액션 -->
+
+    <action name='change_html'>
+        set(allCount, 0);
+        
+        for(set(i, 0), i LT hotspot.count, inc(i),
+            if(hotspot[get(i)].tag == 'icon_exp',
+                inc(allCount);
+                trace("allCount :: ", allCount);
+            );
+        );
+        copy(layer[check_icon].url, layer[check_icon].url_2);
+        copy(layer[check_text].css, layer[check_text].css_2);
+        set(layer[check_text].html, calc(0+'/'+allCount));
+    </action>
+
+    <action name='checked_icon'>
+        set(iconCount, 0);
+        set(iconCheck, 0);
+
+        for(set(i, 0), i LT hotspot.count, inc(i),
+            if(hotspot[get(i)].tag == 'icon_exp',
+                inc(iconCount);
+
+                if(hotspot[get(i)].checked,
+                    inc(iconCheck);
+                );
+            );
+        );
+        
+        copy(layer[check_icon].url, layer[check_icon].url_2);
+        copy(layer[check_text].css, layer[check_text].css_2);
+
+        set(layer[check_text].html, calc(iconCheck+'/'+iconCount));
+
+        if(iconCount == iconCheck,
+            copy(layer[check_icon].url, layer[check_icon].change_url);
+            copy(layer[check_text].css, layer[check_text].change_css);
+            tween(hotspot[next_btn].alpha, 1);
+        );
+    </action>
+
+    <action name ='center_title'>
+        for(set(i, 0), i LT layer.count, inc(i),
+            if(layer[get(i)].tag == small_title,
+                set(layer[get(i)].ox, calc(stagewidth /2 - layer[get(i)].width*layer[get(i)].scale/2));
+                set(layer[get(i)].oy, calc(stageheight /2 - layer[get(i)].height*layer[get(i)].scale/2));
+                delayedcall(1.5,
+                    title_moving();
+                );
+            );
+        );
+    </action>
+    
+    <action name='title_moving'>
+        for(set(i, 0), i LT layer.count, inc(i),
+            if(layer[get(i)].tag == small_title,
+                tween(layer[get(i)].scale, 0.23, 1.5);
+                tween(layer[get(i)].ox, 5, 1.5);
+                tween(layer[get(i)].oy, 5, 1.5);
+            );
+        );
+    </action>
+
+    <action name='show_check'>
+        set(layer[check_icon].alpha, 1);
+        set(layer[check_text].alpha, 1);
+    </action>
+
+    <action name='hide_check'>
+        set(layer[check_icon].alpha, 0);
+        set(layer[check_text].alpha, 0);
+    </action>
+
+
+<!-- 공용 레이어 -->
+    
+
+    <layer name='check_icon'
+        url='%ROOT%/assets/_common/exp_count.png'
+        url_2='%ROOT%/assets/_common/exp_count.png'
+        change_url='%ROOT%/assets/_common/exp_count_checked.png'
+        keep='true'
+        alpha='0'
+        enabled='false'
+        capture='false'
+        handcursor='false'
+        edge='top'
+        align='top'
+        ox='0' oy='15'
+        scale='0.33'
+    />
+
+    <layer name='check_text'
+        type='text'
+        html=''
+        keep='true'
+        enabled='false'
+        css='font-size: 40px; color: #000000; align: center;'
+        css_2='font-size: 40px; color: #000000; align: center;'
+        change_css='font-size: 40px; color: #00bf00; align: center;'
+        bg='false'
+        edge='top'
+        align='top'
+        x='26' y='19.5'
+        zorder="99"
+        alpha='0'
+    />
+
+<!-- 공용 핫스팟 -->
+
+    <hotspot name='nadirlogo'
+        keep='true'
+        atv='90'
+        distorted='true'
+        url='%ROOT%/assets/_common/nadirlogo.png'
+        enabled='false'
+    />
+    
+</krpano>

@@ -1,0 +1,349 @@
+<krpano>
+    <events name='scene_19_event'
+        onnewpano='insert_script(script_10); narration_start();'
+        onremovepano='stop_sound(); stop_script();'
+        onviewchange='copy(hotspot[next_btn].ath, view.hlookat);'
+    />
+
+    <action name='narration_start'>
+        play_script();
+        playsound(narration_19, get(sound_source[narration_19].url), false, 1,start_answer());
+    </action>
+
+    <action name='stop_sound'>
+        if(sound[narration_19], sound[narration_19].stop());
+        if(sound[narration_19_1], sound[narration_19_1].stop());
+        if(sound[narration_19_2], sound[narration_19_2].stop());
+        if(sound[narration_19_3], sound[narration_19_3].stop());
+        if(sound[narration_19_4], sound[narration_19_4].stop());
+    </action>
+
+    <array name='script_10'>
+        <line name='line_0' text='가득 찬 물건들로 인해 롤테이너 건너편이 보이지 않습니다.' />
+        <line name='line_1' text='이런 경우, 롤테이너를 옮기기 위한 올바른 방법은' />
+        <line name='line_2' text='무엇일까요?' />
+    </array>
+
+    <array name='script_11'>
+        <line name='line_0' text='정답입니다! 안전한 롤테이너 사용을 위해 시야' />
+        <line name='line_1' text='확보는 매우 중요합니다. 앞이 보이지 않을 때는 미는' />
+        <line name='line_2' text='것보다 당기는 방식이 더 좋습니다. 이때 주의할' />
+        <line name='line_3' text='점은 롤테이너를 꼭 두 손으로 잡고 이동 방향을' />
+        <line name='line_4' text='확인하면서 이동합니다.' />
+    </array>
+
+    <array name='script_12'>
+        <line name='line_0' text='정답입니다! 안전한 롤테이너 사용을 위해 시야' />
+        <line name='line_1' text='확보는 매우 중요합니다. 앞이 보이지 않을 때는 미는' />
+        <line name='line_2' text='것보다 당기는 방식이 더 좋습니다. 이때 주의할' />
+        <line name='line_3' text='점은 롤테이너를 꼭 두 손으로 잡고 이동 방향을' />
+        <line name='line_4' text='확인하면서 이동합니다. 오답의 내용도 확인해볼까요?' />
+    </array>
+
+    <array name='script_13'>
+        <line name='line_0' text='오답입니다. 앞이 보이지 않는 상태에서 롤테이너를 미는' />
+        <line name='line_1' text='것은 위험합니다. 이점을 유념하고 다시 정답을 골라보겠습니다.' />
+    </array>
+
+    <array name='script_14'>
+        <line name='line_0' text='앞이 보이지 않는 상태에서 롤테이너를 미는 것은 위험합니다.' />
+    </array>
+
+    <action name='start_answer'>
+        set(hotspot[pull_btn].visible, true);
+        set(hotspot[push_btn].visible, true);
+        tween(hotspot[pull_btn].alpha, 1);
+        tween(hotspot[push_btn].alpha, 1);
+    </action>
+
+    <!-- <layer name='black_screen'
+        type='container'
+        capture='false'
+        handcursor="false"
+        enabled='true'
+        visible='false'
+        width="get:stagewidth" height="get:stageheight"
+        bg='true' bgcolor='0x000000' bgalpha='0.4'
+        alpha='0'
+    /> -->
+
+    <!-- <layer name='answer' url='%ROOT%/assets/0_intro/bg_left.png'
+        style='st_answer|style_drag_hotspot_distortion'
+        parent='layer[black_screen]'
+        enabled='false'
+        ath="0" atv="0" scale='0.4'
+        oy='-170'
+    /> -->
+
+    <action name='flipping' scope='local'>
+        if(caller.fliped,
+            tween(caller.ry, 360,,,
+                set(caller.fliped, false);
+            );
+        ,
+            tween(caller.ry, 360,,,
+                set(caller.fliped, true);
+            );
+            delayedcall(delayedcall_next,0.25,
+                copy(caller.url, caller.change_url);
+                set(caller.enabled, false);
+            );
+        );
+            trace("action fliped :: ", caller.fliped);
+    </action>
+
+    <action name='enabled_pull'>
+        set(hotspot[pull_btn].enabled, true);
+        set(hotspot[pull_click_btn].checked, true);
+        set(hotspot[exit_video_2].enabled, true);
+
+        tween(hotspot[pull_click_btn].alpha, 1);
+    </action>
+
+    <action name='enabled_push'>
+        set(hotspot[push_btn].enabled, true);
+        set(hotspot[push_click_btn].checked, true);
+        set(hotspot[exit_video_1].enabled, true);
+
+        tween(hotspot[push_click_btn].alpha, 1);
+    </action>
+
+    <layer name='back_btn'
+        style='st_back_btn'
+        onclick.addevent='
+            loadscene(scene_14, , ,colorblend(0.5, 0x000000));
+        '
+    />
+
+    <layer name='RT_title' url='%ROOT%/assets/rt/1_title.png'
+        style='st_small_title'
+    />
+
+    <layer name='RT_question_1'
+        url='%ROOT%/assets/rt/RT_question_1.png'
+        style='st_questions'
+        script='script_25_1'
+    />
+    
+    <!-- <hotspot name='exit_video_1' url='%ROOT%/assets/_common/exit_video.png'
+        style='st_exit'
+        ath='0' atv='0'
+        ox='0' oy='-105'
+        linkedhotspot='push_btn'
+        onloaded.addevent='delayedcall(1, set(ox, calc(147 + hotspot[push_btn].width*hotspot[push_btn].scale/-2 + width*scale/-2)););'
+        onclick='callwith(hotspot[push_btn], onclick(); );'
+    />
+
+    <hotspot name='exit_video_2' url='%ROOT%/assets/_common/exit_video.png'
+        style='st_exit'
+        ath='0' atv='0'
+        ox='0' oy='-105'
+        linkedhotspot='pull_btn'
+        onloaded.addevent='delayedcall(1, set(ox, calc(-147 + hotspot[pull_btn].width*hotspot[pull_btn].scale/2 + width*scale/2)););'
+        onclick='callwith(hotspot[pull_btn], onclick(); );'
+    /> -->
+
+    <hotspot name='RT2_cloud' url='%ROOT%/assets/rt/scene_19/RT2_cloud.png'
+        style='st_answer|style_drag_hotspot_distortion'
+        alpha='1'
+        distorted='false'
+        enabled='false'
+        ath="0.0000000000" atv="-29.2308036869" scale="0.8"
+    />
+
+    <hotspot name='pull_btn' 
+        url='%ROOT%/assets/rt/push.png'
+        org_url='%ROOT%/assets/rt/push.png'
+        change_url='%ROOT%/assets/rt/scene_19/RT2_wrong.png'
+        style='st_btn|style_drag_hotspot_distortion'
+        checkedAgain='true'
+        script='script_14'
+        thenscript='script_13'
+        linkedhotspot='wrong_video'
+        linkedhotspot_2='exit_video_2'
+        ox='-355'
+        onclick='
+            stop_script(); stop_sound();
+            looktohotspot(get(name),120);
+            callwith(hotspot[wrong_video], onclick());
+            set(clicked, true);
+            switch(hotspot[get(linkedhotspot)].alpha, 0, 1);
+            tween(hotspot[pull_click_btn].alpha, 0);
+            set(hotspot[push_btn].enabled, false);
+            set(enabled, false);
+
+            if(fliped,
+                set(hotspot[push_btn].enabled, true);
+            );
+
+            if(hotspot[get(linkedhotspot_2)],
+                switch(hotspot[get(linkedhotspot_2)].alpha, 0, 1); 
+            );
+
+            if(hotspot[pull_click_btn].checked AND hotspot[push_click_btn].checked,
+                stop_script(); stop_sound();
+                insert_script(get(hotspot[next_btn].script));
+                play_script();
+                playsound(narration_next, get(sound_source[narration_next].url), false, 1, tween(hotspot[next_btn].alpha, 1));
+                set(hotspot[push_click_btn].checked, false);
+                set(hotspot[pull_click_btn].checked, false);
+            );
+
+            if(hotspot[push_btn].checked == true AND fliped == false,
+                insert_script(get(thenscript)); play_script();
+                playsound(narration_19_3, get(sound_source[narration_19_3].url), false, 1, enabled_pull());
+                playsound(wrong, get(sound_source[wrong].url), false, 0.5);
+                set(checked, false);
+            );
+            
+            if(hotspot[push_btn].checked == false AND fliped == false,
+                insert_script(get(script)); play_script();
+                playsound(narration_19_4, get(sound_source[narration_19_4].url), false, 1, enabled_pull());
+                playsound(wrong, get(sound_source[wrong].url), false, 0.5);
+                set(fliped, false);
+            );
+            flipping();
+        '
+    />
+    
+    <hotspot name='push_btn'
+        url='%ROOT%/assets/rt/pull.png'
+        org_url='%ROOT%/assets/rt/pull.png'
+        change_url='%ROOT%/assets/rt/scene_19/RT2_correct.png'
+        style='st_btn|style_drag_hotspot_distortion'
+        script='script_12'
+        checkedAgain='true'
+        test='false'
+        thenscript='script_11'
+        linkedhotspot='correct_video'
+        linkedhotspot_2='exit_video_1'
+        ox='355'
+        onclick='
+            callwith(hotspot[correct_video], onclick());
+            stop_script(); stop_sound();
+            looktohotspot(get(name),120);    
+            
+            set(clicked, true);
+            switch(hotspot[get(linkedhotspot)].alpha, 0, 1);
+            tween(hotspot[push_click_btn].alpha, 0);
+            set(hotspot[pull_btn].enabled, false);
+            set(enabled, false);
+
+            if(fliped,
+                set(hotspot[pull_btn].enabled, true);
+            );
+
+            if(hotspot[get(linkedhotspot_2)],
+                switch(hotspot[get(linkedhotspot_2)].alpha, 0, 1); 
+            );
+
+            if(hotspot[pull_click_btn].checked AND hotspot[push_click_btn].checked,
+                stop_script(); stop_sound();
+                insert_script(get(hotspot[next_btn].script));
+                play_script();
+                playsound(narration_next, get(sound_source[narration_next].url), false, 1, tween(hotspot[next_btn].alpha, 1));
+                set(hotspot[push_click_btn].checked, false);
+                set(hotspot[pull_click_btn].checked, false);
+            );
+
+            if(hotspot[pull_btn].checked == true AND fliped == false,
+                insert_script(get(script)); play_script();
+                playsound(narration_19_2, get(sound_source[narration_19_2].url), false, 1, enabled_push());
+                playsound(correct, get(sound_source[correct].url), false, 1);
+                set(checked, false);
+                
+            );
+
+            if(hotspot[pull_btn].checked == false AND fliped == false,
+                insert_script(get(thenscript)); play_script();
+                playsound(narration_19_1, get(sound_source[narration_19_1].url), false, 1, enabled_push());
+                playsound(correct, get(sound_source[correct].url), false, 1);
+            );
+            flipping();
+        '
+    />
+
+    <hotspot name='correct_video'
+        style='st_rules_video|st_rules|style_drag_hotspot_distortion'
+        videourl='%ROOT%/assets/video/RT_video/RT_2_correct.mp4'
+        posturl='%ROOT%/assets/video/RT_video/RT_2_correct.jpg'
+        enabled='true'
+        capture='false'
+        handcursor='false'
+        checkk='false'
+        alpha='0'
+        edge='right'
+        ox='235'
+        ath="0" atv="0" scale="0.245" rx="0" ry="0" rz="0"
+        linkedhotspot='push_btn'
+    />
+
+    <hotspot name='wrong_video'
+        style='st_rules_video|st_rules|style_drag_hotspot_distortion'
+        videourl='%ROOT%/assets/video/RT_video/RT_2_wrong.mp4'
+        posturl='%ROOT%/assets/video/RT_video/RT_2_wrong.jpg'
+        enabled='true'
+        capture='false'
+        handcursor='false'
+        checkk='false'
+        edge='left'
+        ox='-235'
+        ath="0" atv="0" scale="0.245" rx="0" ry="0" rz="0"
+        linkedhotspot='pull_btn'
+    />
+
+
+    <hotspot name='next_btn' 
+        style='st_next_btn'
+        ath="1.7065676467" atv="25" scale="0.4"
+        script='script_next'
+        onclick.addevent='loadscene(scene_20, , ,colorblend(0.5, 0x000000));'
+    />
+
+    <hotspot name='push_click_btn' url='%ROOT%/assets/rt/click.png'
+        style='st_roll|style_drag_hotspot_distortion'
+        enabled='true'
+        distorted='false'
+        checked='false'
+        alpha='0'
+        onup='tween(oy, -10, 0.5, ,ondown());'
+        ondown='tween(oy, 10, 0.5, , onup());'
+        onloaded='onup();'
+        ath="35.6815591435" atv="-23.4286687528" scale="0.5"
+    />
+
+
+    <hotspot name='pull_click_btn' url='%ROOT%/assets/rt/click.png'
+        style='st_roll|style_drag_hotspot_distortion'
+        enabled='true'
+        distorted='false'
+        checked='false'
+        alpha='0'
+        onup='tween(oy, -10, 0.5, ,ondown());'
+        ondown='tween(oy, 10, 0.5, , onup());'
+        onloaded='onup();'
+        ath="-34.3641178745" atv="-23.4286687528" scale="0.5"
+    />
+
+    <action name='checked_btn'>
+        set(btnCount, 0);
+        set(btncheck, 0);
+        set(hotspot[pull_btn].enabled, true);
+        set(hotspot[push_btn].enabled, true);
+        for(set(i, 0), i LT hotspot.count, inc(i),
+            if(hotspot[get(i)].tag == 'btn',
+                inc(btnCount);
+
+                if(hotspot[get(i)].clicked == true,
+                    inc(btncheck);
+                );
+            );
+        );
+
+        if(btncheck == btnCount,
+            tween(hotspot[next_btn].alpha, 1);
+            
+        );
+    </action>
+
+</krpano>

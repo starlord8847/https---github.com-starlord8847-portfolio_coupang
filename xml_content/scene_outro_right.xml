@@ -1,0 +1,36 @@
+<krpano>
+    <hotspot name='bg_right'
+        url='%ROOT%/assets/outro/right/bg.png'
+        distorted='true'
+        scale='0.5'
+        ath='90'
+        enabled='false'
+        capture='false'
+    />
+    <style name='style_hs_flip_card_right' style='style_hs_flip_card' ath='90' />
+   
+    <hotspot name='hs_flip_card_right_1'
+        style='style_hs_flip_card_right'
+        url='%ROOT%/assets/outro/right/1_b.png'
+        org_url='%ROOT%/assets/outro/right/1_b.png'
+        flip_url='%ROOT%/assets/outro/right/1.png'
+        ox='-200'
+        oy='40'
+    />
+    <hotspot name='hs_flip_card_right_2'
+        style='style_hs_flip_card_right'
+        url='%ROOT%/assets/outro/right/2_b.png'
+        org_url='%ROOT%/assets/outro/right/2_b.png'
+        flip_url='%ROOT%/assets/outro/right/2.png'
+        ox=''
+        oy='40'
+    />
+    <hotspot name='hs_flip_card_right_3'
+        style='style_hs_flip_card_right'
+        url='%ROOT%/assets/outro/right/3_b.png'
+        org_url='%ROOT%/assets/outro/right/3_b.png'
+        flip_url='%ROOT%/assets/outro/right/3.png'
+        ox='200'
+        oy='40'
+    />
+</krpano>

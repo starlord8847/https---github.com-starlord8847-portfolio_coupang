@@ -1,0 +1,71 @@
+<krpano>
+    <include url='%ROOT%/xml_content/scene_intro_front.xml' />
+    <include url='%ROOT%/xml_content/scene_intro_back.xml' />
+    <include url='%ROOT%/xml_content/scene_intro_left.xml' />
+    <include url='%ROOT%/xml_content/scene_intro_right.xml' />
+    <include url='%ROOT%/xml_content/scene_intro_slide.xml' />
+
+    <events name='event_intro'
+        onnewpano='insert_script(script_0); hide_back_btn();'
+        onremovepano='stop_script(); stop_sound();'
+        onresize='set(layer[black_screen].width, get:stagewidth); set(layer[black_screen].height, get:stageheight);'
+    />
+
+    <action name='narration_start'>
+        play_script();
+        playsound(narration_intro, get(sound_source[narration_intro].url), false, 1, show_slide());
+    </action>
+
+    <action name='stop_sound'>
+        if(sound[narration_intro], sound[narration_intro].stop());
+        if(sound[narration_intro_2], sound[narration_intro_2].stop());
+        if(sound[intro_background], sound[intro_background].stop());
+    </action>
+
+    <!-- <action name='play_sound'>
+        playsound(narration_intro_2, get(sound_source[narration_intro_2].url), false, 1, play_tooltip());
+    </action> -->
+
+    <array name='script_0'>
+        <line name='line_0' text='쿠팡 360 VR에 오신 것을 환영합니다.' />
+        <line name='line_1' text='360 VR 교육을 통해 캠프 내 작업 과정을 간접 체험하고 ' />
+        <line name='line_2' text='단계별 안전 수칙을 익히게 됩니다.' />
+        <line name='line_3' text='먼저 사용 방법을 확인한 후 시작 버튼을 눌러주세요.' />
+    </array>
+
+    <action name='show_slide'>
+        callwith(layer[slide], onShow);
+    </action>
+
+    <style name='st_black'
+        capture='false'
+        handcursor="true"
+        enabled='true'
+        alpha='1'
+    />
+
+    <layer name='black_screen'
+        type='text'
+        style='st_black'
+        width="get:stagewidth" height="get:stageheight"
+        bg='true' bgcolor='0x000000' bgalpha='0.4'
+        onclick="close_bg(); narration_start();"
+    />
+
+    <layer name='black_tooltip' url='%ROOT%/assets/intro/init_help.png'
+        style='st_black'
+        align='center'
+        edge='center'
+        scale='0.7'
+        onclick='callwith(layer[black_screen], onclick);
+            playsound(intro_background, get(sound_source[intro_background].url), true, 0.1);'
+    />
+
+    <action name='close_bg'>
+        tween(layer[black_screen].alpha, 0);
+        tween(layer[black_tooltip].alpha, 0);
+        set(layer[black_screen].enabled, false);
+        set(layer[black_tooltip].enabled, false);
+    </action>
+
+</krpano>

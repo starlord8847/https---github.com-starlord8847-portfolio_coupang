@@ -1,0 +1,101 @@
+<krpano>
+    <events name='event_scene_13'
+        onnewpano='insert_script(script_3); narration_start(); show_back_btn();'
+        onremovepano='stop_sound(); stop_script();'
+    />
+    <array name='script_3'>
+        <line name='line_0' text='화면의 보이는 세 종류의 롤테이너를' />
+        <line name='line_1' text='화면 뒤쪽으로 이동해 보도록 하겠습니다.' />
+        <line name='line_2' text='가운데 롤테이너를 클릭해주세요.' />
+    </array>
+
+    <action name='narration_start'>
+        play_script();
+        playsound(narration_13_1, get(sound_source[narration_13_1].url), false, 1, looktoANDnarration());
+        playsound(camp_background, get(sound_source[camp_background].url), true, 0.3);
+    </action>
+
+    <action name='stop_sound'>
+        if(sound[narration_13_1], sound[narration_13_1].stop());
+        if(sound[narration_13_2], sound[narration_13_2].stop());
+        if(sound[narration_13_3], sound[narration_13_3].stop());
+    </action>
+
+    <action name='looktoANDnarration'>
+        lookto(149.46765376130222, 0);
+        playsound(narration_13_2, get(sound_source[narration_13_2].url), false, 1, narrationANDlookto());
+    </action>
+
+    <action name='narrationANDlookto'>
+        lookto(0, 0);
+        playsound(narration_13_3, get(sound_source[narration_13_3].url), false, 1, setting_visible_alpha());
+    </action>
+
+    <action name='setting_visible_alpha'>
+        tween(hotspot[center_roll_btn].alpha, 1);
+        set(hotspot[choice_rt].visible, true);
+    </action>
+
+    <layer name='RT_title' url='%ROOT%/assets/rt/1_title.png'
+        style='st_small_titlee'
+        onloaded='
+            center_title();
+        '
+    />
+
+    <layer name='back_btn'
+        style='st_back_btn'
+        onclick.addevent='
+            loadscene(scene_13_black, , ,colorblend(0.5, 0x000000));
+        '
+    />
+
+    <hotspot name='center_roll_btn' url='%ROOT%/assets/rt/click.png'
+        style='st_roll|style_drag_hotspot_distortion'
+        enabled='true'
+        distorted='true'
+        scale='0.5'
+        alpha='0'
+        onup='tween(oy, -10, 0.5, ,ondown());'
+        ondown='tween(oy, 10, 0.5, , onup());'
+        onloaded='onup();'
+        ath="0" atv="-22.2724184212"
+        onclick.addevent='
+            playsound(click, get(sound_source[click].url), false, 1);
+            loadscene(scene_17, , ,colorblend(0.5, 0x000000));
+        '
+    />
+
+    <action name='show_back_btn'>
+        set(layer[RT_title].visible, true);
+    </action>
+
+    <action name='hide_back_btn'>
+        set(layer[RT_title].visible, false);
+    </action>
+
+    <hotspot name='moveTospot'
+        style='st_poly_point'
+        visible='true'
+        enabled='false'
+    >
+        <point ath="143.94064316207852" atv="12.833996151197322"/>
+        <point ath="131.5195975755933" atv="16.019567697040742"/>
+        <point ath="162.01597825136463" atv="22.161800185238334"/>
+        <point ath="167.5820716481854" atv="15.292922445091161"/>
+    </hotspot>
+
+    <hotspot name='choice_rt'
+        style='st_poly_point'
+        onclick.addevent='
+            playsound(click, get(sound_source[click].url), false, 1);
+            loadscene(scene_17, , ,colorblend(0.5, 0x000000));
+        '
+    >
+        <point ath="-8.392745812095882" atv="-7.872879998783713"/>
+        <point ath="8.17465445144461" atv="-7.910800966528329"/>
+        <point ath="9.047433104513516" atv="19.304891107523858"/>
+        <point ath="-8.271437397676777" atv="19.501659605244647"/>
+    </hotspot>
+
+</krpano>

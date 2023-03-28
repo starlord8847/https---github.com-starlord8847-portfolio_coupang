@@ -1,0 +1,147 @@
+<krpano>
+    <events name='events_scene_outro' onremovepano='js(clearTimeout(delayedcall_next)); stopdelayedcall(delayedcall_next)'
+        onviewchange='copy(hotspot[endingMsg].ath, view.hlookat);'
+        onnewpano='nouse_exp_count(); insert_script(script_outro_1); narration_start();'
+        flipping='false'
+    />
+
+
+    <array name='script_outro_1'>
+        <line name='line_0' text='앞서 배운 내용들을 다시 한 번 살펴보겠습니다.' />
+        <line name='line_1' text='체크리스트 아래에 보이는 버튼을 클릭해보세요.' />
+    </array>
+    <array name='script_outro_2'>
+        <line name='line_0' text='쿠팡 360 VR 교육이 종료되었습니다. 감사합니다.' />
+    </array>
+    
+        
+    <action name='narration_start'>
+        if(!sound[narration] OR (sound[narration] AND sound[narration].paused),
+            play_script();
+            playsound(narration_outro_1, get(sound_source[narration_outro_1].url), false, 1);
+        );
+    </action>
+
+
+
+
+    <include url='%ROOT%/xml_components/snow_ext.xml' />
+    <include url='scene_outro_center.xml' />
+    <include url='scene_outro_right.xml' />
+    <include url='scene_outro_back.xml' />
+
+    <style name='style_hs_flip_card'
+        tag='flip_card'
+        distorted='true'
+        scale='0.5'
+        org_scale='0.5'
+        enabled='true'
+        capture='false'
+        fliped='false'
+        checked='false'
+        onover='if(!flipping, stoptween(scale); tween(scale, calc(org_scale+0.02)); playsound(effect_hover, get(sound_source[effect_hover].url), false, 1); )'
+        onout='if(!flipping, stoptween(scale); tween(scale, get(org_scale)); )'
+        onclick='flipcard()'
+    />
+    <action name='flipcard' scope='local'>
+        if(!events[events_scene_outro].flipping AND !caller.flipping,
+            playsound(effect_image_appears, get(sound_source[effect_image_appears].url), false, 1);
+            stoptween(caller.ry);
+            set(caller.flipping, true);
+            set(events[events_scene_outro].flipping, true);
+            tween(caller.scale, get(caller.org_scale));
+
+            if(caller.fliped,
+                tween(caller.ry, 0,,,
+                    set(caller.flipping, false);
+                    set(events[events_scene_outro].flipping, false);
+                    set(caller.fliped, false);
+                );
+                delayedcall(delayedcall_next,0.25,
+                    copy(caller.url, caller.org_url);
+                );
+            ,
+                tween(caller.ry, 360,,,
+                    set(caller.flipping, false);
+                    set(events[events_scene_outro].flipping, false);
+                    set(caller.fliped, true);
+                    set(caller.checked, true);
+                    checkifallseen();
+                );
+                delayedcall(delayedcall_next,0.25,
+                    copy(caller.url, caller.flip_url);
+                );
+            );
+        );
+    </action>
+
+    <action name='checkifallseen'>
+        
+        set(expHsCount, 0);
+        set(expCheckedHsCount, 0);
+        for(set(i,0), i LT hotspot.count, inc(i),
+            if(hotspot[get(i)].tag == flip_card,
+                inc(expHsCount);
+
+                if(hotspot[get(i)].checked,
+                    inc(expCheckedHsCount,1);
+                );
+            );
+        );
+        
+        if(expCheckedHsCount GT 0 AND expHsCount LE expCheckedHsCount,
+            ending_celemony();
+        );
+    </action>
+
+
+    <hotspot name='endingMsg' url='%ROOT%/assets/outro/ending_msg.png' scale='0.5'
+        autoalpha='true'
+        alpha='0'
+        enabled='false'
+        showed='false'
+    />
+
+    <action name='ending_celemony'>
+        if(!hotspot[endingMsg].showed,
+            <!-- 나레이션 & 자막 -->
+            stopscript();
+            delayedcall(0.5,
+                insert_script(script_outro_2);
+                play_script();
+            );
+            playsound(narration_outro_2, get(sound_source[narration_outro_2].url), false, 1);
+            
+            <!-- 세러모니 효과 -->
+            playsound(effect_fire_fireworks, get(sound_source[effect_fire_fireworks].url), false, 0.2,
+                playsound(effect_fire_fireworks, get(sound_source[effect_fire_fireworks].url), false, 0.2);
+                delayedcall(0.5, playsound(effect_fire_fireworks, get(sound_source[effect_fire_fireworks].url), false, 0.2));
+            );
+            endingflask();
+            tween(hotspot[endingMsg].alpha, 1);
+            tween(plugin[snow].alpha, 1);
+            set(hotspot[endingMsg].showed, true);
+
+            delayedcall(delayedcall_next, 30,
+                tween(hotspot[endingMsg].alpha, 0);
+                set(plugin[snow].alpha,0);
+            );
+        );
+    </action>
+
+	<action name="endingflask">
+		set(plugin[snow].mode,          image);
+		set(plugin[snow].imageurl,      '%ROOT%/assets/_common/flask_1.png');
+		set(plugin[snow].blendmode,     normal);
+		set(plugin[snow].flakes,        40);
+		set(plugin[snow].imagescale,    0.5);
+		set(plugin[snow].speed,         4.0);
+		set(plugin[snow].shake,         8.0);
+		set(plugin[snow].speedvariance, 2.0);
+		set(plugin[snow].spreading,     2.0);
+		set(plugin[snow].wind,          0.0);
+		set(plugin[snow].invert,        false);
+		set(plugin[snow].floor,         0.7);
+	</action>
+	
+</krpano>

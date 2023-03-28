@@ -1,0 +1,140 @@
+<krpano>
+
+    <events name='scene_18_event'
+        onnewpano='change_html(); show_check(); insert_script(script_18); narration_start(); change_html();'
+        onremovepano='stop_script(); stop_sound(); hide_check();'
+    />
+
+    <action name='narration_start'>
+        play_script();
+        playsound(narration_18, get(sound_source[narration_18].url), false, 1,start_answer());
+    </action>
+
+    <action name='stop_sound'>
+        if(sound[narration_18], sound[narration_18].stop());
+        if(sound[narration_18_1], sound[narration_18_1].stop());
+        if(sound[narration_18_2], sound[narration_18_2].stop());
+        if(sound[narration_18_3], sound[narration_18_3].stop());
+    </action>
+
+    <array name='script_18'>
+        <line name='line_0' text='이번에는 롤테이너 이동시 추가적으로 주의해야할 부분에 대해' />
+        <line name='line_1' text='알아보겠습니다. 버튼을 눌러 주의사항을 확인해보세요.' />
+    </array>
+
+    <array name='script_18_1'>
+        <line name='line_0' text='롤테이너를 이동할때에는 발끼임에 주의하며 이동합니다.' />
+        <line name='line_1' text='큰 부상으로 이어질 수 있습니다.' />
+    </array>
+
+    <array name='script_18_2'>
+        <line name='line_0' text='롤테이너를 이동할때에는 휴대폰 사용 금지입니다. 굉장히 위험합니다.' />
+    </array>
+
+    <array name='script_18_3'>
+        <line name='line_0' text='롤테이너를 이동할때에는 반드시 이동방향을 주시하며' />
+        <line name='line_1' text='이동합니다. 다른곳을 보다가 사고납니다.' />
+    </array>
+
+    <layer name='RT_title' url='%ROOT%/assets/_common/1_title.png'
+        style='st_small_title'
+    />
+
+    <hotspot name='center_exp'
+        style='st_icon_exp|style_drag_hotspot_distortion'
+        enabled='true'
+        script='script_18_3'
+        ath="0" atv="-15.0049496997" scale="0.1"
+        linkedhotspot='center_rule'
+        onclick.addevent='
+            stop_sound();
+            insert_script(get(script));
+            play_script();
+            playsound(narration_18_3, get(sound_source[narration_18_3].url), false, 1,start_answer());
+        '
+    />
+
+    <hotspot name='left_exp'
+        style='st_icon_exp|style_drag_hotspot_distortion'
+        enabled='true'
+        script='script_18_1'
+        ath="-24.3384037566" atv="28.7170502006" scale="0.1"
+        linkedhotspot='left_rule'
+        onclick.addevent='
+            stop_sound();
+            insert_script(get(script));
+            play_script();
+            playsound(narration_18_2, get(sound_source[narration_18_2].url), false, 1,start_answer());
+        '
+    />
+
+    <hotspot name='right_exp'
+        style='st_icon_exp|style_drag_hotspot_distortion'
+        enabled='true'
+        script='script_18_2'
+        ath="43.2221848552" atv="0" scale="0.1"
+        linkedhotspot='right_rule'
+        onclick.addevent='
+            stop_sound();
+            insert_script(get(script));
+            play_script();
+            playsound(narration_18_1, get(sound_source[narration_18_1].url), false, 1,start_answer());
+        '
+    />
+    
+    
+    
+    
+    
+
+    <hotspot name='center_rule' url='%ROOT%/assets/intro/bg_left.png'
+        style='st_rules|style_drag_hotspot_distortion'
+        ath="0" atv="-15.0049496997"
+        linkedhotspot='center_exp'
+        onclick.addevent='
+            stop_script();
+            stop_sound();
+            switch(alpha, 0, 1);
+            checked_icon();
+        '
+    />
+
+    <hotspot name='left_rule' url='%ROOT%/assets/intro/bg_left.png'
+        style='st_rules|style_drag_hotspot_distortion'
+        ath="-24.3384037566" atv="28.7170502006"
+        linkedhotspot='left_exp'
+        onclick.addevent='
+            stop_script();
+            stop_sound();
+            switch(alpha, 0, 1);
+            checked_icon();
+        '
+    />
+
+    <hotspot name='right_rule' url='%ROOT%/assets/intro/bg_left.png'
+        style='st_rules|style_drag_hotspot_distortion'
+        ath="43.2221848552" atv="0"
+        linkedhotspot='right_exp'
+        onclick.addevent='
+            stop_script();
+            stop_sound();
+            switch(alpha, 0, 1);
+            checked_icon();
+        '
+    />
+
+    <hotspot name='next_btn' 
+        style='st_next_btn|style_drag_hotspot_distortion'
+        ath="0.1664108192" atv="17.1309832572" scale="0.4"
+        linkedscene='scene_14'
+    />
+
+    <layer name='back_btn'
+        style='st_back_btn'
+        onclick.addevent='
+            loadscene(scene_17, , ,colorblend(0.5, 0x000000));
+        '
+    />
+
+    
+</krpano>

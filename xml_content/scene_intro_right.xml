@@ -1,0 +1,22 @@
+<krpano>
+    <hotspot name='right_title' url='%ROOT%/assets/intro/slide/intro_slide_2.png'
+        style='st_title'
+        enabled='false'
+        capture='false'
+        handcursor='true'
+        scale='0.5'
+        ath='90' atv=''
+        onclick='showSlide(1)'
+    />
+
+    <hotspot name='right_close' url='%ROOT%/assets/intro/slide/intro_slide_text.png'
+        style='st_title'
+        enabled='false'
+        capture='false'
+        handcursor='true'
+        scale='0.5'
+        oy='250'
+        ath='90' atv=''
+        onclick='showSlide(1)'
+    />
+</krpano>

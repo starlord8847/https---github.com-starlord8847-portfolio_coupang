@@ -1,0 +1,395 @@
+<krpano>
+    <events name='event_scene_33'
+        onnewpano='insert_script(script_33); narration_start(); lookat(-35.462294144316225, 13.369403723433697);'
+        onremovepano='stop_sound(); stop_script();'
+        onviewchange='copy(hotspot[next_btn].ath, view.hlookat);'
+    />
+
+    <action name='narration_start'>
+        play_script();
+        playsound(narration_33, get(sound_source[narration_33].url), false, 1, lookto_1());
+        playsound(camp_car, get(sound_source[camp_car].url), false, 0.3);
+    </action>
+
+    <action name='stop_sound'>
+        if(sound[narration_33], sound[narration_33].stop());
+        if(sound[narration_33_1], sound[narration_33_1].stop());
+        if(sound[narration_33_2], sound[narration_33_2].stop());
+        if(sound[narration_33_3], sound[narration_33_3].stop());
+        if(sound[narration_33_4], sound[narration_33_4].stop());
+        if(sound[camp_background], sound[camp_background].stop());
+    </action>
+
+    <action name='lookto_1'>
+        looktohotspot(click_1, 120);
+        tween(hotspot[cloud_2].alpha, 1);
+        playsound(narration_333, get(sound_source[narration_333].url), false, 1, lookto_2());
+            
+    </action>
+
+    <action name='lookto_2'>
+        looktohotspot(click_2, 120);
+        tween(hotspot[cloud_1].alpha, 1);
+        playsound(narration_3333, get(sound_source[narration_3333].url), false, 1, visible_poly());
+    </action>
+
+    <action name='visible_poly'>
+        lookto(-35.462294144316225, 13.369403723433697);
+        set(hotspot[tot_box].visible, true);
+        set(hotspot[safety_stair].visible, true);
+        tween(hotspot[pull_btn].alpha, 1);
+        tween(hotspot[push_btn].alpha, 1);
+        set(hotspot[pull_btn].visible, true);
+        set(hotspot[push_btn].visible, true);
+    </action>
+
+    <array name='script_33'>
+        <line name='line_0' text='이번에는 도크장 아래로 이동해보도록 하겠습니다.' />
+        <line name='line_1' text='1번과 2번중 안전하게 이동하려면 어디로' />
+        <line name='line_2' text='이동해야 할까요? 올바른 선택지를 선택해주세요.' />
+    </array>
+
+    <array name='script_33_1'>
+        <line name='line_0' text='정답입니다! 안전은 빠르고 편한 것이 아닙니다. ' />
+        <line name='line_1' text='불안전한 지름길 대신 정해진 통로를 사용하는 것은 ' />
+        <line name='line_2' text='안전의 기본이자 매우 중요한 안전 수칙입니다.' />
+        <line name='line_3' text='오답의 내용도 살펴볼까요?' />
+    </array>
+
+    <array name='script_33_2'>
+        <line name='line_0' text='정답입니다! 안전은 빠르고 편한 것이 아닙니다. ' />
+        <line name='line_1' text='불안전한 지름길 대신 정해진 통로를 사용하는 것은 ' />
+        <line name='line_2' text='안전의 기본이자 매우 중요한 안전 수칙입니다.' />
+    </array>
+
+    <array name='script_33_3'>
+        <line name='line_0' text='오답입니다. 지정된 통로나 계단을 이용하는 것은 안전의 ' />
+        <line name='line_1' text='기본입니다. 특히 임의로 통로를 만들어 다니는 것은 ' />
+        <line name='line_2' text='절대 금물입니다. 이점을 유념하고 다시 정답을 골라보겠습니다.' />
+    </array>
+
+    <array name='script_33_4'>
+        <line name='line_0' text='오답입니다. 지정된 통로나 계단을 이용하는 것은 안전의 ' />
+        <line name='line_1' text='기본입니다. 특히 임의로 통로를 만들어 다니는 것은 ' />
+        <line name='line_2' text='절대 금물입니다.' />
+    </array>
+
+    <action name='flippingg' scope='local'>
+        if(!caller.fliped,
+            tween(caller.ry, 360,,,
+                set(caller.fliped, true);
+            );
+            delayedcall(delayedcall_next,0.25,
+                copy(caller.url, caller.change_url);
+                set(caller.enabled, false);
+            );
+        );
+    </action>
+
+    <action name='flipping' scope='local'>
+        if(caller.fliped,
+            tween(caller.ry, 360,,,
+                set(caller.fliped, false);
+            );
+        ,
+            tween(caller.ry, 360,,,
+                set(caller.fliped, true);
+            );
+            delayedcall(delayedcall_next,0.25,
+                copy(caller.url, caller.change_url);
+                set(caller.enabled, false);
+            );
+        );
+    </action>
+
+    <action name='enabled_pull'>
+        set(hotspot[pull_btn].enabled, true);
+        set(hotspot[push_btn].enabled, true);
+        set(hotspot[pull_click_btn].checked, true);
+        set(hotspot[exit_video_2].enabled, true);
+
+        if(hotspot[pull_click_btn].checked AND hotspot[push_click_btn].checked,
+            insert_script(get(hotspot[next_btn].script));
+            play_script();
+            playsound(narration_next, get(sound_source[narration_next].url), false, 1, tween(hotspot[next_btn].alpha, 1));
+            set(hotspot[push_click_btn].checked, false);
+            set(hotspot[pull_click_btn].checked, false);
+        );
+    </action>
+
+    <action name='enabled_push'>
+        set(hotspot[push_btn].enabled, true);
+        set(hotspot[pull_btn].enabled, true);
+        set(hotspot[push_click_btn].checked, true);
+        set(hotspot[exit_video_1].enabled, true);
+        set(hotspot[push_btn].clickedd, true);
+        tween(hotspot[push_click_btn].alpha, 0);
+    </action>
+
+
+    
+
+    <layer name='camp_question_2_1'
+        url='%ROOT%/assets/camp/scene_33/camp_question_2_1.png'
+        style='st_questions'
+        script='script_25_1'
+    />
+    
+    <!-- <hotspot name='exit_video_1' url='%ROOT%/assets/_common/exit_video.png'
+        style='st_exit'
+        ath="-35.462294144316225" atv="13.369403723433697"
+        ox='0' oy='-105'
+        linkedhotspot='push_btn'
+        onloaded.addevent='delayedcall(1, set(ox, calc(155 - hotspot[push_btn].width*hotspot[push_btn].scale/-2 + width*scale/-2)););'
+        onclick='callwith(hotspot[push_btn], onclick(); );'
+    /> -->
+
+    <hotspot name='pull_btn' 
+        url='%ROOT%/assets/camp/scene_33/stair_down.png'
+        org_url='%ROOT%/assets/camp/scene_33/stair_down.png'
+        change_url='%ROOT%/assets/camp/scene_33/stair_correct.png'
+        style='st_btn|style_drag_hotspot_distortion'
+        clickedd='false'
+        script='script_33_2'
+        thenscript='script_33_1'
+        linkedhotspot='correct_video'
+        ath="-35.462294144316225" atv="13.369403723433697"
+        ox='-135'
+        onclick='
+            stop_script(); stop_sound();
+            looktohotspot(get(name),120);
+            set(clicked, true);
+            switch(hotspot[get(linkedhotspot)].alpha, 0, 1);
+            tween(hotspot[pull_click_btn].alpha, 0);
+            set(hotspot[push_btn].enabled, false);
+            set(enabled, false);
+
+            if(hotspot[get(linkedhotspot_2)],
+                switch(hotspot[get(linkedhotspot_2)].alpha, 0, 1); 
+            );
+
+            if(hotspot[pull_click_btn].checked AND hotspot[push_click_btn].checked,
+                insert_script(get(hotspot[next_btn].script));
+                play_script();
+                playsound(narration_next, get(sound_source[narration_next].url), false, 1, tween(hotspot[next_btn].alpha, 1));
+                set(hotspot[push_click_btn].checked, false);
+                set(hotspot[pull_click_btn].checked, false);
+            );
+
+            if(hotspot[push_btn].checked == true,
+                insert_script(get(thenscript)); play_script();
+                playsound(narration_33_1, get(sound_source[narration_33_1].url), false, 1, enabled_pull());
+                playsound(correct, get(sound_source[correct].url), false, 1);
+                set(checked, false);
+                trace("onclick fliped :: ", fliped);
+            );
+            
+            if(hotspot[push_btn].checked == false,
+                insert_script(get(script)); play_script();
+                playsound(narration_33_2, get(sound_source[narration_33_2].url), false, 1, enabled_pull());
+                playsound(correct, get(sound_source[correct].url), false, 1);
+                set(fliped, false);
+            );
+            flippingg();
+        '
+    />
+    
+    <hotspot name='push_btn'
+        url='%ROOT%/assets/camp/scene_33/totbox_down.png'
+        org_url='%ROOT%/assets/camp/scene_33/totbox_down.png'
+        change_url='%ROOT%/assets/camp/scene_33/totbox_wrong.png'
+        style='st_btn|style_drag_hotspot_distortion'
+        checkedAgain='true'
+        test='false'
+        script='script_33_3'
+        thenscript='script_33_4'
+        linkedhotspot='wrong_video'
+        linkedhotspot_2='exit_video_1'
+        ath="-35.462294144316225" atv="13.369403723433697"
+        ox='135' oy=''
+        onclick='
+            stop_script(); stop_sound();
+            looktohotspot(get(name),120);    
+            callwith(hotspot[wrong_video], onclick());
+            set(clicked, true);
+            switch(hotspot[get(linkedhotspot)].alpha, 0, 1);
+            tween(hotspot[push_click_btn].alpha, 0);
+            set(hotspot[pull_btn].enabled, false);
+
+            if(hotspot[get(linkedhotspot_2)],
+                switch(hotspot[get(linkedhotspot_2)].alpha, 0, 1); 
+            );
+
+            if(fliped == true,
+                set(hotspot[pull_btn].enabled, true);
+                tween(hotspot[push_click_btn].alpha, 0);
+            );
+
+            if(hotspot[pull_click_btn].checked AND hotspot[push_click_btn].checked,
+                insert_script(get(hotspot[next_btn].script));
+                play_script();
+                playsound(narration_next, get(sound_source[narration_next].url), false, 1, tween(hotspot[next_btn].alpha, 1));
+                set(hotspot[push_click_btn].checked, false);
+                set(hotspot[pull_click_btn].checked, false);
+            );
+
+            if(hotspot[pull_btn].checked == true AND fliped == false,
+                insert_script(get(script)); play_script();
+                playsound(narration_33_3, get(sound_source[narration_33_3].url), false, 1, enabled_push());
+                playsound(wrong, get(sound_source[wrong].url), false, 0.5);
+                set(checked, false);
+                
+            );
+
+            if(hotspot[pull_btn].checked == false AND fliped == false,
+                insert_script(get(thenscript)); play_script();
+                playsound(narration_33_4, get(sound_source[narration_33_4].url), false, 1, enabled_push());
+                playsound(wrong, get(sound_source[wrong].url), false, 0.5);
+            );
+            flipping();
+        '
+    />
+
+    <!-- <hotspot name='correct_video'
+        style='st_rules_video|st_rules|style_drag_hotspot_distortion'
+        videourl='%ROOT%/assets/video/RT_video/RT_2_correct.mp4'
+        posturl='%ROOT%/assets/video/RT_video/RT_2_correct.jpg'
+        enabled='true'
+        capture='false'
+        handcursor='false'
+        checkk='false'
+        alpha='0'
+        edge='right'
+        ox=''
+        ath="-35.462294144316225" atv="13.369403723433697" scale="0.245"
+        linkedhotspot='push_btn'
+        onloaded.addevent='delayedcall(1, set(ox, calc(120 + hotspot[pull_btn].width*hotspot[pull_btn].scale/-2 + width*scale/-2)););'
+    /> -->
+
+    <hotspot name='wrong_video'
+        style='st_rules_video|st_rules|style_drag_hotspot_distortion'
+        videourl='%ROOT%/assets/video/camp_video/totbox.mp4'
+        posturl='%ROOT%/assets/video/camp_video/totbox.jpg'
+        enabled='true'
+        capture='false'
+        handcursor='false'
+        checkk='false'
+        edge='left'
+        ox='-16'
+        ath="-35.462294144316225" atv="13.369403723433697" scale="0.245" rx="0" ry="0" rz="0"
+        linkedhotspot='push_btn'
+        onloaded.addevent='delayedcall(2, set(ox, calc(160 - hotspot[push_btn].width*hotspot[push_btn].scale/2 + width*scale/2)););'
+    />
+
+
+    <layer name='back_btn'
+        style='st_back_btn'
+        onclick.addeventd='
+            loadscene(scene_32, , ,colorblend(0.5, 0x000000));
+        '
+    />
+
+    <layer name='camp_title' url='%ROOT%/assets/camp/4_title.png'
+        style='st_small_titlee'
+        onloaded='
+            center_title();
+        '
+    />
+
+    <style name='st_click_12'
+        enabled='false'
+        scale='0.5'
+    />
+
+    <hotspot name='click_1' url='%ROOT%/assets/camp/scene_33/click_1.png'
+        style='st_click_12|style_drag_hotspot_distortion'
+        ath="-94.0304607099" atv="-6.8924948111"
+        onup='tween(oy, -10, 0.5, ,ondown());'
+        ondown='tween(oy, 10, 0.5, , onup());'
+        onloaded='onup();'
+    />
+
+    <hotspot name='click_2' url='%ROOT%/assets/camp/scene_33/click_2.png'
+        style='st_click_12|style_drag_hotspot_distortion'
+        ath="-6.5371336994" atv="37.3538026455"
+        onup='tween(oy, -10, 0.5, ,ondown());'
+        ondown='tween(oy, 10, 0.5, , onup());'
+        onloaded='onup();'
+    />
+
+    <hotspot name='cloud_1' url='%ROOT%/assets/camp/scene_33/cloud_1.png'
+        style='style_drag_hotspot_distortion'
+        enabled='false'
+        alpha='0'
+        ath="23.5884403504" atv="36.0078964747" scale="0.7"
+    />
+
+    <hotspot name='cloud_2' url='%ROOT%/assets/camp/scene_33/cloud_2.png'
+        style='style_drag_hotspot_distortion'
+        enabled='false'
+        alpha='0'
+        ath="-118.7518139952" atv="-5.7073639687" scale="0.7"
+    />
+
+    <hotspot name='tot_box'
+        style='st_poly_point'
+        visible='false'
+        enabled='false'
+    >
+        <point ath="-13.161426322186117" atv="46.42648162457468"/>
+        <point ath="-13.396586985279953" atv="52.06335507494567"/>
+        <point ath="-12.143161976519082" atv="52.14502071010218"/>
+        <point ath="-11.958657206087821" atv="63.56192837398343"/>
+        <point ath="10.336904594809369" atv="61.21521639016245"/>
+        <point ath="10.355638178542051" atv="52.451196748288915"/>
+        <point ath="5.455798710561055" atv="46.274788902708224"/>
+        <point ath="2.0143141565620795" atv="46.707170366465704"/>
+        <point ath="1.2680580848485192" atv="45.32810346031232"/>
+    </hotspot>
+
+    <hotspot name='safety_stair'
+        style='st_poly_point'
+        visible='false'
+        enabled='false'
+    >
+        <point ath="-100.86930303438123" atv="2.279644711790646"/>
+        <point ath="-87.42418961979217" atv="2.259845265954266"/>
+        <point ath="-87.49043044806172" atv="11.075551448691233"/>
+        <point ath="-100.50247391956611" atv="11.365152822566289"/>
+    </hotspot>
+
+    <hotspot name='push_click_btn' url='%ROOT%/assets/rt/click.png'
+        style='st_roll|style_drag_hotspot_distortion'
+        enabled='true'
+        distorted='false'
+        checked='false'
+        alpha='0'
+        onup='tween(oy, -10, 0.5, ,ondown());'
+        ondown='tween(oy, 10, 0.5, , onup());'
+        onloaded='onup();'
+        ath="-20.3668823803" atv="-15" scale="0.5"
+    />
+
+
+    <hotspot name='pull_click_btn' url='%ROOT%/assets/rt/click.png'
+        style='st_roll|style_drag_hotspot_distortion'
+        enabled='true'
+        distorted='false'
+        checked='false'
+        alpha='0'
+        onup='tween(oy, -10, 0.5, ,ondown());'
+        ondown='tween(oy, 10, 0.5, , onup());'
+        onloaded='onup();'
+        ath="-48.4375079516" atv="-15" scale="0.5"
+    />
+
+    <hotspot name='next_btn' 
+        style='st_next_btn|style_drag_hotspot_distortion'
+        alpha='0'
+        edge='top'
+        script='script_next'
+        ath="-35.0291518153" atv="25" scale="0.4"
+        onclick.addevent='loadscene(scene_34, , ,colorblend(0.5, 0x000000));'
+    />
+
+</krpano>

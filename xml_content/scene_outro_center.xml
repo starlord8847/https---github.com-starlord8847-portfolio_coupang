@@ -1,0 +1,50 @@
+<krpano>
+    <hotspot name='bg_center'
+        url='%ROOT%/assets/outro/center/bg.png'
+        distorted='true'
+        scale='0.5'
+        enabled='false'
+        capture='false'
+    />
+   
+    <hotspot name='hs_flip_card_center_1'
+        style='style_hs_flip_card'
+        url='%ROOT%/assets/outro/center/1_b.png'
+        org_url='%ROOT%/assets/outro/center/1_b.png'
+        flip_url='%ROOT%/assets/outro/center/1.png'
+        ox='-200'
+        oy=''
+    />
+    <hotspot name='hs_flip_card_center_2'
+        style='style_hs_flip_card'
+        url='%ROOT%/assets/outro/center/2_b.png'
+        org_url='%ROOT%/assets/outro/center/2_b.png'
+        flip_url='%ROOT%/assets/outro/center/2.png'
+        ox=''
+        oy=''
+    />
+    <hotspot name='hs_flip_card_center_3'
+        style='style_hs_flip_card'
+        url='%ROOT%/assets/outro/center/3_b.png'
+        org_url='%ROOT%/assets/outro/center/3_b.png'
+        flip_url='%ROOT%/assets/outro/center/3.png'
+        ox='200'
+        oy=''
+    />
+    <hotspot name='hs_flip_card_center_4'
+        style='style_hs_flip_card'
+        url='%ROOT%/assets/outro/center/4_b.png'
+        org_url='%ROOT%/assets/outro/center/4_b.png'
+        flip_url='%ROOT%/assets/outro/center/4.png'
+        ox='-100'
+        oy='135'
+    />
+    <hotspot name='hs_flip_card_center_5'
+        style='style_hs_flip_card'
+        url='%ROOT%/assets/outro/center/5_b.png'
+        org_url='%ROOT%/assets/outro/center/5_b.png'
+        flip_url='%ROOT%/assets/outro/center/5.png'
+        ox='100'
+        oy='135'
+    />
+</krpano>

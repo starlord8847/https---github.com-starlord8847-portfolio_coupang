@@ -1,0 +1,145 @@
+<krpano>
+    <events name='event_scene_23'
+        onnewpano='insert_script(script_22_1); narration_start(); looktoat(); set(hotspot[push_btn].enabled, false); set(hotspot[pull_btn].enabled, false);'
+        onremovepano='stop_sound(); stop_script();'
+        onviewchange='copy(hotspot[next_btn].ath, view.hlookat);'
+    />
+    <action name='narration_start'>
+        play_script();
+        playsound(narration_23_2, get(sound_source[narration_23_2].url), false, 1, enabledset());
+    </action>
+
+    <action name='stop_sound'>
+        if(sound[narration_23_2], sound[narration_23_2].stop());
+        if(sound[narration_next], sound[narration_next].stop());
+    </action>
+
+    <array name='script_22_1'>
+        <line name='line_0' text='두 명이 롤테이너를 옮길 때는 이동 경로의 앞뒤가 아니라,' />
+        <line name='line_1' text='양옆에서 두 사람이 같은 방향을 바라보고 이동하는 것이' />
+        <line name='line_2' text='안전합니다.' />
+    </array>
+
+    <array name='script_21'>
+        <line name='line_0' text='이동 경로의 앞뒤에서 함께 이동할 때는 두 사람 사이에 있는' />
+        <line name='line_1' text='롤테이너가 의사소통에 어려움을 유발하므로 사고 위험이 있습니다.' />
+    </array>
+
+    <action name='looktoat'>
+        lookat(-21.91761403755578, 0);
+        start_answer();
+    </action>
+
+    <action name='start_answer'>
+        tween(hotspot[pull_btn].alpha, 1);
+        tween(hotspot[push_btn].alpha, 1);
+        set(hotspot[pull_btn].visible, true);
+        set(hotspot[push_btn].visible, true);
+    </action>
+
+    <layer name='back_btn'
+        style='st_back_btn'
+        onclick.addevent='
+            loadscene(scene_22, , ,colorblend(0.5, 0x000000));
+        '
+    />
+
+    <layer name='RT_title' url='%ROOT%/assets/rt/1_title.png'
+        style='st_small_title'
+    />
+
+    <action name='enabledset' scope='local'>
+        set(hotspot[push_btn].enabled, true);
+        set(hotspot[pull_btn].enabled, true);
+        insert_script(get(hotspot[next_btn].script));
+        play_script();
+        playsound(narration_next, get(sound_source[narration_next].url), false, tween(hotspot[next_btn].alpha, 1));
+    </action>
+
+    <action name='flipping' scope='local'>
+        if(!caller.fliped,
+            <!-- tween(caller.ry, 360,,,
+                set(caller.fliped, false);
+            );
+        , -->
+            tween(caller.ry, 360,,,
+                set(caller.fliped, true);
+            );
+            delayedcall(delayedcall_next,0.25,
+                copy(caller.url, caller.change_url);
+                set(caller.enabled, false);
+            );
+        );
+    </action>
+
+
+    <hotspot name='pull_btn' 
+        url='%ROOT%/assets/rt/scene_22/RT3_wrong.png'
+        style='st_btn|style_drag_hotspot_distortion'
+        tag='btn'
+        visible='false'
+        checked='true'
+        script='script_21'
+        thenscript='script_20'
+        ox='-135'
+        oy='-80'
+        ath="-21.91761403755578" atv="0"
+        thenclick='insert_script(get(thenscript)); play_script();'
+        onclick='
+            stop_script();
+            stop_sound();
+            set(enabled, false);
+            set(checked, false);
+            set(hotspot[push_btn].enabled, false);
+            looktohotspot(get(name),120);
+            playsound(wrong, get(sound_source[wrong].url), false, 0.5);
+            insert_script(get(script)); play_script();
+            playsound(narration_22_4, get(sound_source[narration_22_4].url), false, 1, enabledset());
+            
+        '
+    />
+
+    <hotspot name='push_btn'
+        url='%ROOT%/assets/rt/scene_22/RT3_correct.png'
+        style='st_btn|style_drag_hotspot_distortion'
+        tag='btn'
+        visible='false'
+        checked='true'
+        script='script_22_1'
+        linkedhotspot='correct_video'
+        ox='135'
+        oy='-80'
+        ath="-21.91761403755578" atv="0"
+        thenclick='insert_script(get(thenscript)); play_script();'
+        onclick='
+            stop_script();
+            stop_sound();
+            set(enabled, false);
+            set(hotspot[pull_btn].enabled, false);
+            looktohotspot(get(name),120);
+            playsound(correct, get(sound_source[correct].url), false, 1);
+            insert_script(get(script)); play_script();
+            playsound(narration_23_2, get(sound_source[narration_23_2].url), false, 1, enabledset());
+        '
+    />
+
+    <hotspot name='movespot'
+        style='st_poly_point'
+        type='polygonal'
+        visible='true'
+    >
+        <point ath="-68.6403198109706" atv="8.490299580414755"/>
+        <point ath="-68.65681342675333" atv="8.517293407225765"/>
+        <point ath="-76.55343438828663" atv="9.64894846522805"/>
+        <point ath="-65.17725922189533" atv="12.077806432250801"/>
+        <point ath="-56.39555196611059" atv="9.89154309098493"/>
+    </hotspot>
+
+    <hotspot name='next_btn' 
+        style='st_next_btn|style_drag_hotspot_distortion'
+        ath="-33.0913243481" atv="25" scale="0.4"
+        script='script_next'
+        onclick.addevent='loadscene(scene_16, , ,colorblend(0.5, 0x000000));'
+    />
+
+</krpano>

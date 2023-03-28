@@ -1,0 +1,32 @@
+<krpano>
+    <hotspot name='left_title' url='%ROOT%/assets/intro/slide/intro_slide_1.png'
+        style='st_title'
+        enabled='false'
+        capture='false'
+        handcursor='true'
+        ath='-90' atv='0'
+        ox='0' oy='0'
+        scale='0.5'
+        onclick='showSlide(0)'
+    />
+
+    <hotspot name='left_close' url='%ROOT%/assets/intro/slide/intro_slide_text.png'
+        style='st_title'
+        enabled='false'
+        capture='false'
+        handcursor='true'
+        scale='0.5'
+        oy='250'
+        ath='-90' atv=''
+        onclick='showSlide(1)'
+    />
+
+    <!-- <hotspot name='left_next_btn' url='%ROOT%/assets/0_intro/btn_start.png'
+        style='st_title'
+        enabled='true'
+        handcursor='true'
+        ath='-90' atv='0'
+        ox='0' oy='150'
+        onclick='loadscene(scene_13_black, , ,colorblend(0.5, 0x000000));'
+    /> -->
+</krpano>

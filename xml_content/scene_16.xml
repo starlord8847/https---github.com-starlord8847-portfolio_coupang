@@ -1,0 +1,49 @@
+<krpano>
+    <events name='event_scene_16'
+        onnewpano='insert_script(script_23); narration_start();'
+        onremovepano='stop_sound(); stop_script(); set(layer[RT_title].visible, false);'
+        onviewchange='copy(hotspot[next_btn].ath, view.hlookat);'
+    />
+
+    <action name='narration_start'>
+        play_script();
+        playsound(narration_16_1, get(sound_source[narration_16_1].url), false, 1, looktoANDnarration());
+    </action>
+
+    <action name='stop_sound'>
+        if(sound[narration_16], sound[narration_16].stop());
+        if(sound[narration_16_1], sound[narration_16_1].stop());
+        if(sound[narration_16_2], sound[narration_16_2].stop());
+        if(sound[camp_background], sound[camp_background].stop());
+        
+    </action>
+
+    <action name='looktoANDnarration'>
+        lookto(149.95319115916737, 0);
+        playsound(narration_16_2, get(sound_source[narration_16_2].url), false, 1, tween(hotspot[next_btn].alpha, 1));
+    </action>
+
+    <array name='script_23'>
+        <line name='line_0' text='수고하셨습니다. 롤테이너 이동을 무사히 완료하였습니다.' />
+        <line name='line_1' text='적재함으로 이동하기 위해 다음버튼을 눌러주세요.' />
+    </array>
+
+    <layer name='back_btn'
+        style='st_back_btn'
+        onclick.addevent='
+            loadscene(scene_23, , ,colorblend(0.5, 0x000000));
+        '
+    />
+
+    <layer name='RT_title' url='%ROOT%/assets/rt/1_title.png'
+        style='st_small_title'
+    />
+
+    <hotspot name='next_btn' 
+        style='st_next_btn|style_drag_hotspot_distortion'
+        ath="150.0845170759" atv="25" scale="0.4"
+        script='script_next'
+        onclick.addevent='loadscene(scene_27_black, , ,colorblend(0.5, 0x000000));'
+    />
+
+</krpano>

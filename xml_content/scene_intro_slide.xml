@@ -1,0 +1,178 @@
+<krpano>
+
+    <events name='events_slides'
+        onnewpano='loadSlide()'
+        onresize='callwith(layer[bg_black], onResize)'
+        onkeyup='detectKeyForShortcuts()'
+    />
+
+    <slide_settings scale='0.7' currentIdx='0'
+        slidecount='2'
+        test='1'
+    />
+
+    <!-- 테스트 버튼 필요없으면 주석처리 -->
+    <!-- <layer name='test_btn'
+        type='text'
+        edge='lefttop'
+        x='10'
+        y='10'
+        html='슬라이드 1'
+        padding="10"
+        roundedge='8'
+        css='font-size: 1.2rem;'
+        onclick='showSlide(0)'
+    />
+    <layer name='test_btn_2'
+        type='text'
+        edge='lefttop'
+        x='10'
+        y='60'
+        html='슬라이드 2'
+        padding="10"
+        roundedge='8'
+        css='font-size: 1.2rem;'
+        onclick='showSlide(1)'
+    /> -->
+
+    <!-- 키보드 눌림 감지 -->
+    <action name='detectKeyForShortcuts' scope='local'>
+        <!-- 슬라이드가 켜져있을 때만 작동 --> if(layer[slide].alpha LE 0, break(); ); <!--
+        esc 키 27 -->
+        if(keycode == 27, callwith(layer[slide], onHide); ); <!-- 왼쪽 방향키 : 37 --> if(keycode == 37, goNextSlide(-1); ); <!--
+        오른쪽 방향키 : 39 -->
+        if(keycode == 39, goNextSlide(1); ); </action>
+    <action name='showSlide' scope='local' args='index'>
+        if(index != null,
+        copy(slide_settings.currentIdx, index);
+        trace(slide_settings.currentIdx);
+        );
+        loadSlide();
+        callwith(layer[slide], onShow);
+    </action>
+
+    <style name='slide'
+        edge='center'
+        align='center'
+        scale='get:slide_settings.scale'
+        enabled='true'
+        handcursor='false'
+        autoalpha='true'
+        alpha='0'
+    />
+    <style name='slide_arrow'
+        style='slide'
+        edge='center'
+        align='center'
+        scale='get:slide_settings.scale'
+        ondown='set(oy, 2)'
+        onup='set(oy, 0)'
+        handcursor='true'
+        onclick='goNextSlide(get(next)); playsound(click, get(sound_source[click].url), false, 1);'
+        onloaded='setArrowProperPosition()'
+    />
+    <layer name='bg_black' type='text' width='get:stagewidth' height='get:stageheight'
+        alpha='0'
+        bg='true'
+        bgcolor='0x000000' bgalpha='0.8' enabled='true' handcursor='false'
+        autoalpha='true'
+        onResize='copy(width, stagewidth);copy(height, stageheight);'
+        onHide='tween(alpha, 0);'
+        onShow='tween(alpha, 1);'
+    />
+
+    <!-- 실제 보여지는 슬라이드 & 기타 요소들 -->
+    <layer name='slide' style='slide' url='%ROOT%/assets/intro/slide/intro_slide_1.png'
+        onHide='tween(alpha, 0); callwith(layer[bg_black], onHide);'
+        onShow='tween(alpha, 1); callwith(layer[bg_black], onShow);'>
+        <layer name='slide_left' style='slide_arrow' next='-1' edge='left' align='left'
+            scale='get:slide_settings.scale' url='%ROOT%/assets/intro/slide/left.png' />
+        <layer name='slide_right' style='slide_arrow' next='1' edge='right' align='right'
+            scale='get:slide_settings.scale' url='%ROOT%/assets/intro/slide/right.png' />
+        <layer name='slide_close' style='slide' edge='righttop' align='righttop'
+            scale='get:slide_settings.scale' url='%ROOT%/assets/intro/slide/close.png'
+            alpha='1'
+            handcursor='true'
+            onclick='
+                callwith(layer[get(parent)], onHide); 
+                callwith(layer[bg_black], onHide);
+                set(hotspot[front_start_btn].enabled, true);
+                set(hotspot[right_title].enabled, true);
+                set(hotspot[left_title].enabled, true);
+                playsound(click, get(sound_source[click].url), false, 1);
+            '
+            onloaded='setCloseProperPosition()'
+        />
+    </layer>
+
+
+    <!-- 양쪽 슬라이드 넘기는 화살표 위치 조정 Action -->
+    <action name='setArrowProperPosition' type='Javascript'><![CDATA[ 
+        let newOx = krpano.get('slide_settings.scale') * 35;
+        if(caller.align=='right'){
+            newOx *= -1;
+        };
+        caller.ox = newOx;
+    ]]></action>
+    <!-- 슬라이드 닫기 Action -->
+    <action name='setCloseProperPosition' type='Javascript'><![CDATA[ 
+        let newOx = krpano.get('slide_settings.scale') * -35;
+        caller.ox = newOx;
+    ]]></action>
+
+
+    <!-- 양쪽 슬라이드 넘기기 화살표 클릭 Action -->
+    <action name='goNextSlide' type='Javascript'><![CDATA[
+        <!-- next 값이 마이너스인 경우 -->
+        let nextAddValue = 1;
+        if(args[1].includes('-')){
+            nextAddValue *= -1;
+        }
+
+        <!-- 새로운 다음 index 계산 -->
+        let currentIdx = parseInt(krpano.get('slide_settings.currentIdx'));
+        currentIdx += nextAddValue;
+
+        <!-- 계산된 index 에 따른 다음 index 값 정정 -->
+        let slideCount = parseInt(krpano.get('slide_settings.slidecount'));
+        if(currentIdx < 0){
+            currentIdx = 0;
+        }
+        if(currentIdx >= slideCount -1){
+            currentIdx = slideCount-1;
+        }
+        krpano.set('slide_settings.currentIdx', currentIdx);
+        krpano.call('loadSlide()');
+    ]]></action>
+
+
+    <!-- 현재 슬라이드(currentIdx)에 맞추어 슬라이드 좌우 화살표 생태 변경 Action -->
+    <action name='updateArrows' type='Javascript'><![CDATA[ 
+        let currentIdx = parseInt(krpano.get('slide_settings.currentIdx'));
+        let slideCount = parseInt(krpano.get('slide_settings.slidecount'));
+        
+        <!-- 왼쪽 화살표 상태 변경 -->
+        if(currentIdx <= 0){
+            krpano.set('layer[slide_left].alpha', 0);
+        }else{
+            krpano.set('layer[slide_left].alpha', 1);
+        }
+
+
+        if(currentIdx >= slideCount -1){
+            krpano.set('layer[slide_right].alpha', 0);
+        }else{
+            krpano.set('layer[slide_right].alpha', 1);
+        }
+    ]]></action>
+
+
+    <!-- 현재 슬라이드(currentIdx)에 맞추어 슬라이드 로딩 Action -->
+    <action name='loadSlide' type='Javascript'><![CDATA[ 
+        krpano.call('updateArrows()');
+        let currentIdx = parseInt(krpano.get('slide_settings.currentIdx'));
+        let currentSlideUrl = `%ROOT%/assets/intro/slide/intro_slide_${currentIdx+1}.png`;
+        krpano.set('layer[slide].url', currentSlideUrl);
+    ]]></action>
+
+</krpano>

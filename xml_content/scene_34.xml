@@ -1,0 +1,42 @@
+<krpano>
+    <events name='event_scene_34'
+        onnewpano='insert_script(script_34); narration_start();'
+        onremovepano='stop_sound(); stop_script();'
+        onviewchange='copy(hotspot[next_btn].ath, view.hlookat);'
+    />
+
+    <array name='script_34'>
+        <line name='line_0' text='잘하셨습니다! 안전계단을 통해 안전하게 도크장 아래로' />
+        <line name='line_1' text='내려왔습니다. 다음버튼을 눌러주세요.' />
+    </array>
+
+    <action name='narration_start'>
+        play_script();
+        playsound(narration_34, get(sound_source[narration_34].url), false, 1, tween(hotspot[next_btn].alpha, 1));
+    </action>
+
+    <action name='stop_sound'>
+        if(sound[narration_34], sound[narration_33].stop());
+        if(sound[camp_car], sound[camp_car].stop());
+    </action>
+
+    <hotspot name='next_btn' 
+        style='st_next_btn|style_drag_hotspot_distortion'
+        alpha='0'
+        edge='top'
+        script='script_next'
+        ath="0" atv="25" scale="0.4"
+        onclick.addevent='loadscene(scene_outro, , ,colorblend(0.5, 0x000000));'
+    />
+
+    <layer name='back_btn'
+        style='st_back_btn'
+        onclick.addevent='
+            loadscene(scene_33, , ,colorblend(0.5, 0x000000));
+        '
+    />
+
+    <layer name='camp_title' url='%ROOT%/assets/camp/4_title.png'
+        style='st_small_title'
+    />
+</krpano>

@@ -1,0 +1,38 @@
+<krpano>
+
+    <style name='st_title'
+        capture='false'
+        distorted='true'
+        alpha='1' autoalpha="true"
+        scale='0.4'
+    />
+    <hotspot name='front_title' url='%ROOT%/assets/intro/title.png'
+        style='st_title'
+        enabled='false'
+        handcursor='false'
+        ath='0' atv='0'
+        ox='0' oy='-60'
+    />
+
+    <hotspot name='front_start_btn' 
+        url='%ROOT%/assets/intro/start_1.png'
+        change_url='%ROOT%/assets/intro/start_2.png'
+        org_url='%ROOT%/assets/intro/start_1.png'
+        style='st_title'
+        enabled='false'
+        handcursor='true'
+        ath='0' atv='0'
+        ox='0' oy='150'
+        onover='
+            if(enabled == true,
+                copy(url, change_url);
+            );
+        '
+        onout='
+            if(enabled == true,
+                copy(url, org_url);
+            );
+        '
+        onclick='loadscene(scene_13_black, , ,colorblend(0.5, 0x000000)); playsound(click, get(sound_source[click].url), false, 1);'
+    />
+</krpano>

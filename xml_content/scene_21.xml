@@ -1,0 +1,105 @@
+<krpano>
+    <events name='event_scene_21'
+        onnewpano='insert_script(script_21); narration_start();'
+        onremovepano='stop_sound(); stop_script();'
+    />
+
+    <array name='script_21'>
+        <line name='line_0' text='혼자서 옮기기에는 무거워 보이네요.' />
+        <line name='line_1' text='앞에 보이는 버튼을 눌러 동료에게 도움을 요청해보세요.' />
+    </array>
+
+    <action name='stop_sound'>
+        if(sound[narration_21], sound[narration_21].stop());
+    </action>
+
+    <action name='narration_start'>
+        play_script();
+        playsound(narration_21, get(sound_source[narration_21].url), false, 1, show_buddy());
+    </action>
+
+    <action name='show_buddy'>
+        lookto(-53.8024503910, 5.7649894063);
+        tween(hotspot[buddy_call].alpha, 1);
+        tween(hotspot[call_buddy_btn].alpha, 1);
+        playsound(narration_21_1, get(sound_source[narration_21_1].url), false, 1);
+        
+    </action>
+
+    <action name='stop_sound'>
+        if(sound[narration_21], sound[narration_21].stop());
+    </action>
+
+    <layer name='back_btn'
+        style='st_back_btn'
+        onclick.addevent='
+            loadscene(scene_15, , ,colorblend(0.5, 0x000000));
+        '
+    />
+
+    <layer name='RT_title' url='%ROOT%/assets/rt/1_title.png'
+        style='st_small_title'
+    />
+
+    <layer name='RT_question_4'
+        url='%ROOT%/assets/rt/scene_21/RT_question_4.png'
+        style='st_questions'
+        script='script_25_1'
+    />
+
+    <hotspot name='heavy' url='%ROOT%/assets/rt/heavy.png'
+        style='st_answer|style_drag_hotspot_distortion'
+        alpha='1'
+        distorted='false'
+        enabled='false'
+        ath="-1.8526747172" atv="-7.7581908081" scale="0.8"
+    />
+
+    <hotspot name='buddy_call'
+        url='%ROOT%/assets/rt/scene_21/buddy.png'
+        style='st_answer|style_drag_hotspot_distortion'
+        distorted='true'
+        alpha='0'
+        ath="-53.8024503910" atv="5.7649894063" scale="0.26"
+        onover='tween(hotspot[buddy_shapes].alpha, 1);'
+        onclick.addevent='
+            looktohotspot(get(name),120);
+            loadscene(scene_22, , ,colorblend(0.5, 0x000000));
+            playsound(test, get(sound_source[test].url), false, 10);
+        '
+    />
+
+    <hotspot name='call_buddy_btn'
+        url='%ROOT%/assets/rt/scene_21/call_buddy.png'
+        style='st_answer|style_drag_hotspot_distortion'
+        distorted='true'
+        enabled='false'
+        alpha='0'
+        ath="-55.0680597219" atv="-13.3336343475" scale="0.4"
+        onbig='tween(scale, 0.34, , , onsmall());'
+        onsmall='tween(scale, 0.32, , , onbig());'
+        onloaded.addevent='onbig();'
+        onclick.addevent='
+            looktohotspot(get(name),120);
+            loadscene(scene_22, , ,colorblend(0.5, 0x000000));
+        '
+    />
+
+    <hotspot name='buddy_shapes'
+        url='%ROOT%/assets/rt/scene_21/buddy_shapes.png'
+        style='st_answer|style_drag_hotspot_distortion'
+        distorted='true'
+        alpha='0'
+        ath="-53.8024503910" atv="5.7649894063" scale="0.26"
+        onout='tween(hotspot[buddy_shapes].alpha, 0);'
+        onclick.addevent='
+            looktohotspot(get(name),120);
+            playsound(test, get(sound_source[test].url), false, 0.7, loadscene(scene_22, , ,colorblend(0.5, 0x000000)););
+            
+        '
+    />
+
+    <!-- onbig='tween(scale, 0.7, , ,onsmall());'
+        onsmall='tween(scale, 0.6, , ,onbig());'
+        onloaded='onbig();' -->
+</krpano>

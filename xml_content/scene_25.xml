@@ -1,0 +1,397 @@
+<krpano>
+    <events name='event_scene_25'
+        onnewpano='insert_script(script_25); narration_start(); set(hotspot[nadirlogo].alpha, 0);
+            set(hotspot[red_zone_1].enabled, false);
+            set(hotspot[red_zone_2].enabled, false);
+        '
+        onremovepano='stop-script(); stop_sound(); set(hotspot[nadirlogo].alpha, 1); clearinterval(interval);'
+        onviewchange='copy(hotspot[next_btn].ath, view.hlookat); '
+    />
+
+    <array name='script_25'>
+        <line name='line_0' text='적재함 정리 작업을 진행해 보겠습니다. 작업 중 밟지 않아야' />
+        <line name='line_1' text='하는 위험 영역을 찾아서 선택해 주세요.' />
+    </array>
+
+    <array name='script_25_2'>
+        <line name='line_0' text='정답입니다! 적재함 내에서 이동 시 추락의 위험이 있으므로, 적재함의 끝' />
+        <line name='line_1' text='부분을 밟지 않습니다.' />
+    </array>
+
+    <array name='script_25_3'>
+        <line name='line_1' text='다음으로 차량에서 하차시, 주의사항에 대해서 살펴 보도록 하겠습니다.' />
+        <line name='line_2' text='다음버튼을 눌러주세요.' />
+    </array>
+
+    <action name='narration_start'>
+        play_script();
+        playsound(narration_25, get(sound_source[narration_25].url), false, 1, delayed_show());
+        playsound(camp_background, get(sound_source[camp_background].url), true, 0.3);
+        playsound(cargobox_car, get(sound_source[cargobox_car].url), false, 0.5);
+    </action>
+
+    <action name='stop_sound'>
+        if(sound[narration_25], sound[narration_25].stop());
+        if(sound[narration_next], sound[narration_next].stop());
+        if(sound[narration_25_1], sound[narration_25_1].stop());
+        if(sound[narration_25_2], sound[narration_25_2].stop());
+        if(sound[narration_25_3], sound[narration_25_3].stop());
+        if(sound[cargobox_car], sound[cargobox_car].stop());
+    </action>
+
+    <layer name='cargobox_question_1'
+        url='%ROOT%/assets/cargobox/scene_25/cargobox_question_1.png'
+        style='st_questions'
+    />
+
+    <layer name='hint_btn'
+        url='%ROOT%/assets/_common/hint_btn.png'
+        org_url='%ROOT%/assets/_common/hint_btn.png'
+        change_url='%ROOT%/assets/_common/hint_btn_click.png'
+        style='st_questions'
+        checked='false'
+        script=''
+        ox='-465'
+        onover='copy(url, change_url); set(scale, 0.24);'
+        onout='copy(url, org_url); set(scale, 0.23);'
+        onclick='
+            playsound(click, get(sound_source[click].url), false, 1);
+            if(!checked,
+                tween(layer[cargobox_answer].alpha, 1);
+                set(checked, true);
+            ,
+                tween(layer[cargobox_answer].alpha, 0);
+                set(checked, false);
+            );
+        '
+    />
+
+    <layer name='hint_btn_click' url='%ROOT%/assets/_common/hint_btn_click.png'
+        style='st_questions'
+        alpha='0'
+        ox='-465'
+        scale='0.23'
+        checked='false'
+        onalpha='tween(alpha, 1, 0.5, , noalpha());'
+        noalpha='tween(alpha, 0, 0.5, , onalpha());'
+        onloaded='onalpha();'
+        onclick='
+            playsound(click, get(sound_source[click].url), false, 1);
+            if(!checked,
+                tween(layer[cargobox_answer].alpha, 1);
+                set(checked, true);
+            ,
+                tween(layer[cargobox_answer].alpha, 0);
+                set(checked, false);
+            );
+        '
+    />
+
+    <layer name='cargobox_answer' url='%ROOT%/assets/cargobox/scene_25/cargobox_answer.png'
+        style='st_questions'
+        alpha='0'
+        scale='0.33'
+        oy='70' ox='-256.5'
+    />
+
+    <layer name='cargoBox_title' url='%ROOT%/assets/cargobox/2_title.png'
+        style='st_small_titlee'
+        onloaded='
+            center_title();
+        '
+    />
+
+    <layer name='back_btn'
+        style='st_back_btn'
+        onclick.addevent='
+            loadscene(scene_27_black, , ,colorblend(0.5, 0x000000));
+        '
+    />
+
+    <!-- <layer name='hint' url='%ROOT%/assets/_common/hint_btn.png'
+        style='style_drag_hotspot_distortion'
+        align='righttop'
+        edge='righttop'
+        script='script_25_1'
+        scale='0.26'
+        ox='-10' oy='10'
+        onclick='
+            stop_script();
+            stop_sound();
+            insert_script(get(script));
+            play_script();
+            playsound(narration_25_1, get(sound_source[narration_25_1].url), false, 1, show());
+            onshow();
+        '
+    /> -->
+
+    <hotspot name='cargobox_1' url='%ROOT%/assets/cargobox/cargobox_1.png'
+        style='style_drag_hotspot_distortion'
+        distorted='true'
+        enabled='true'
+        captuer='true'
+        ath="-129.1505550989" atv="20.8426268882" scale="0.1649999999999997" rx="0" ry="0" rz="0"
+    />
+
+    <hotspot name='cargobox_5' url='%ROOT%/assets/cargobox/cargobox_5.png'
+        style='style_drag_hotspot_distortion'
+        distorted='true'
+        enabled='false'
+        captuer='true'
+        ath="-50.9243782200" atv="24.8767475816" scale="0.1699999999999997" rx="1.2600000000000176" ry="-5.1900000000000075" rz="0"
+    />
+
+    <action name='delayed_show'>
+        set(hotspot[red_zone_1].enabled, true);
+        set(hotspot[red_zone_2].enabled, true);
+        set(layer[hint_btn].enabled, true);
+        if(hotspot[red_zone_1].checked == true OR hotspot[red_zone_2].checked == true,
+            
+        ,
+            delayedcall(25,
+                show();
+            );
+        );
+        
+    </action>
+
+    <action name='show'>
+        tween(hotspot[red_zone_1].alpha, 0.5, , ,hide());
+        tween(hotspot[red_zone_2].alpha, 0.5, , ,hide());
+    </action>
+
+    <action name='hide'>
+        tween(hotspot[red_zone_1].alpha, 0.1, , ,show());
+        tween(hotspot[red_zone_2].alpha, 0.1, , ,show());
+    </action>
+
+    <layer name='correct' url='%ROOT%/assets/_common/correct.png'
+        align='center'
+        edget='center'
+        alpha='0'
+        enabled='false'
+        scale='1.2'
+    />
+
+    <!-- onshow='tween(alpha, 1, , , onhide());' 
+        onhide='tween(alpha, 0, , , onshow());' 
+        onloaded='' -->
+
+    <hotspot name='footer_correct' 
+        videourl='%ROOT%/assets/video/cargobox_video/footer_correct.mp4'
+        style='st_rules_video'
+        autoalpha='true'
+        alpha='0'
+        enabled='false'
+        scale='0.3'
+        align='center'
+        edge='center'
+        zorder="99"
+        script='script_25_3'
+        onclick.addevent='
+            set(alpha, 0);
+            tween(hotspot[next_btn].alpha, 1);
+            set(hotspot[red_zone_1].enabled, false);
+            set(hotspot[red_zone_2].enabled, false);
+            tween(hotspot[click_btn].alpha, 0);
+
+            insert_script(get(script)); play_script();
+            playsound(click_2, get(sound_source[click_2].url), false, 1);
+            playsound(narration_next, get(sound_source[narration_25_3].url), false, 1);
+        '
+    />
+
+    <hotspot name='red_zone_1'
+        type='polygonal'
+        tag='icon_exp'
+        checked='false'
+        alpha='0'
+        visible='true' 
+        enabled='true' 
+        capture='false' 
+        handcursor='true' 
+        fillcolor='0xffffff'
+        bordercolor='0xffffff'
+        borderalpha='0'
+        change_fillcolor='0x00ff00'
+        change_bordercolor='0x00ff00'
+        script='script_25_2'
+        onclick='
+            callwith(hotspot[footer_correct], onclick());
+            playsound(correct, get(sound_source[correct].url), false, 1);
+            tween(alpha, 1);
+            set(enabled, false);
+            set(hotspot[red_zone_2].enabled, false);
+
+            copy(fillcolor, change_fillcolor);
+            copy(bordercolor, change_bordercolor);
+            copy(hotspot[red_zone_2].fillcolor, hotspot[red_zone_2].change_fillcolor);
+            copy(hotspot[red_zone_2].bordercolor, hotspot[red_zone_2].change_bordercolor);
+
+            tween(hotspot[red_zone_2].alpha, 1);
+            set(checked, true);
+            insert_script(get(script)); play_script();
+            playsound(narration_22_1, get(sound_source[narration_22_1].url), false, 1, show_video());
+            tween(layer[correct].alpha, 1);
+            delayedcall(1,
+                tween(layer[correct].alpha, 0);
+            );
+        '
+        >
+            <point ath="-18.126607753678513" atv="39.107579541741195"/>
+            <point ath="20.778684616935323" atv="38.720627736297985"/>
+            <point ath="24.474761701547095" atv="43.200536254938726"/>
+            <point ath="-21.060322470524625" atv="43.989622056061556"/>
+    </hotspot>
+
+    <hotspot name='red_zone_2'
+        type='polygonal'
+        tag='icon_exp'
+        checked='false'
+        alpha='0'
+        visible='true' 
+        enabled='true' 
+        capture='false' 
+        handcursor='true' 
+        fillcolor='0xffffff'
+        bordercolor='0xfffffff'
+        borderalpha='0'
+        change_fillcolor='0x00ff00'
+        change_bordercolor='0x00ff00'
+        script='script_25_2'
+        onclick='
+            callwith(hotspot[footer_correct], onclick());
+            playsound(correct, get(sound_source[correct].url), false, 1);
+            tween(alpha, 1);
+            set(enabled, false);
+            set(hotspot[red_zone_2].enabled, false);
+            
+            copy(fillcolor, change_fillcolor);
+            copy(bordercolor, change_bordercolor);
+            copy(hotspot[red_zone_1].fillcolor, hotspot[red_zone_1].change_fillcolor);
+            copy(hotspot[red_zone_1].bordercolor, hotspot[red_zone_1].change_bordercolor);
+
+            tween(hotspot[red_zone_1].alpha, 1);
+            set(checked, true);
+            insert_script(get(script)); play_script();
+            playsound(narration_22_1, get(sound_source[narration_22_1].url), false, 1, show_video());
+            tween(layer[correct].alpha, 1);
+            delayedcall(1,
+                tween(layer[correct].alpha, 0);
+            );
+        '
+        >
+            <point ath="73.34488523842606" atv="62.40960803810264"/>
+            <point ath="66.32654057389618" atv="69.71885354351055"/>
+            <point ath="159.12044676047515" atv="47.14611216464943"/>
+            <point ath="150.8646781588605" atv="45.121088005339274"/>
+    </hotspot>
+
+    <action name='show_video'>
+        copy(hotspot[footer_correct].ath, view.hlookat); copy(hotspot[footer_correct].atv, view.vlookat);
+        if(hotspot[red_zone_1].checked == true OR hotspot[red_zone_2].checked == true,
+            tween(hotspot[footer_correct].alpha, 1);
+            
+            copy(hotspot[click_btn].ath, view.hlookat); copy(hotspot[click_btn].atv, calc(view.vlookat - 31.5););
+            stop_script();
+            stop_sound();
+            insert_script(get(hotspot[next_btn].script));
+            play_script();
+            playsound(narration_25_2, get(sound_source[narration_25_2].url), false, 1, tween(hotspot[click_btn].alpha, 1); set(hotspot[footer_correct].enabled, true));
+        );
+    </action>
+
+    <hotspot name='click_btn' url='%ROOT%/assets/rt/click.png'
+        style='st_roll|style_drag_hotspot_distortion'
+        enabled='false'
+        distorted='false'
+        alpha='0'
+        onup='stoptween(oy); tween(oy, -10, 0.5, ,ondown());'
+        ondown='stoptween(oy); tween(oy, 10, 0.5, , onup());'
+        onloaded='onup();'
+        zorder="99"
+        ath="0" atv="-23" scale="0.5"
+    />
+
+    <hotspot name='next_btn' 
+        style='st_next_btn|style_drag_hotspot_distortion'
+        alpha='0'
+        edge='top'
+        script='script_25_2'
+        ath="0" atv="25" scale="0.4"
+        onclick.addevent='
+            stop_script(); stop_sound();
+            loadscene(scene_28, , ,colorblend(0.5, 0x000000));
+        '
+    />
+
+    <!-- <hotspot name='center_green_zone_1'
+        type='polygonal'
+        alpha='1'
+        visible='true' 
+        enabled='true' 
+        capture='false' 
+        handcursor='true' 
+        fillcolor='0xE80F0F'
+        bordercolor='0xE80F0F'
+        onshow='tween(alpha, 1, , , onhide());' 
+        onhide='tween(alpha, 0.3, , , onshow());' 
+        onloaded='onshow();'
+        onclick='
+            onshow();
+            playsound(narration_28_1, get(sound_source[narration_28_1].url), false, 1, tween(hotspot[next_btn].alpha, 1));
+        '
+        >
+            <point ath="26.609938469585586" atv="45.7407063603465"/>
+            <point ath="-23.078145927263733" atv="46.50347853673008"/>
+            <point ath="-54.413235426341544" atv="65.54441167922229"/>
+            <point ath="57.40179296884071" atv="62.952937587189794"/>
+    </hotspot>
+
+    <hotspot name='center_green_zone_2'
+        type='polygonal'
+        alpha='1'
+        visible='true' 
+        enabled='true' 
+        capture='false' 
+        handcursor='true' 
+        fillcolor='0xE80F0F'
+        bordercolor='0xE80F0F'
+        onshow='tween(alpha, 1, , , onhide());' 
+        onhide='tween(alpha, 0.3, , , onshow());' 
+        onloaded='onshow();'
+        onclick='
+            onshow();
+            playsound(narration_28_1, get(sound_source[narration_28_1].url), false, 1, tween(hotspot[next_btn].alpha, 1));
+        '
+        >
+            <point ath="134.64192698809748" atv="70.65097697997261"/>
+            <point ath="164.33249666073917" atv="48.310154362341486"/>
+            <point ath="-156.1585352481721" atv="47.00312359969348"/>
+            <point ath="-124.10618081655318" atv="65.7640856231952"/>
+    </hotspot> -->
+
+    <!-- <action name='check_poly'>
+        set(polycount, 0);
+        set(polycheck, 0);
+
+        for(set(i,0), i LT hotspot.count, inc(i),
+            if(hotspot[get(i)].tag == 'icon_exp',
+                inc(polycount);
+
+                if(hotspot[get(i)].checked == true,
+                    inc(polycheck);
+                );
+            );
+        );
+
+        if(polycount == polycheck,
+            stop_script();
+            stop_sound();
+            insert_script(get(hotspot[next_btn].script));
+            play_script();
+            playsound(narration_28_1, get(sound_source[narration_28_1].url), false, 1, tween(hotspot[next_btn].alpha, 1));
+        );
+    </action> -->
+
+</krpano>

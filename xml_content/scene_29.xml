@@ -1,0 +1,246 @@
+<krpano>
+    <events name='scene_29_event'
+        onnewpano='insert_script(script_29); narration_start(); show_check(); change_html();'
+        onremovepano='hide_check();'
+        onviewchange='copy(hotspot[next_btn].ath, view.hlookat);'
+    />
+
+    <action name='narration_start'>
+        play_script();
+        playsound(narration_29, get(sound_source[narration_29].url), false, 1, show_down_btn());
+    </action>
+
+    <action name='stop_sound'>
+        if(sound[narration_29], sound[narration_29].stop());
+        if(sound[narration_29_1], sound[narration_29_1].stop());
+        if(sound[narration_29_2], sound[narration_29_2].stop());
+        if(sound[narration_next], sound[narration_next].stop());
+    </action>
+
+    <array name='script_29'>
+        <line name='line_0' text='안전하게 하차하기, 다시한번 짚어보겠습니다.' />
+        <line name='line_1' text='짐을 먼저 바닥에 내린 후 주의사항을 확인해주세요.' />
+    </array>
+
+    <array name='script_29_1'>
+        <line name='line_0' text='내릴 때는 양손으로 몸을 지지합니다. 계단과는 달리' />
+        <line name='line_1' text='상하로 움직이는 거리가 길어 몸이 안정감을 잃기 쉽습니다.' />
+    </array>
+
+    <array name='script_29_2'>
+        <line name='line_0' text='발판이 그렇게 넓지 않습니다. 잘못 밟는경우 미끄러지거나' />
+        <line name='line_1' text='균형을 잃게 되는 원인이 되기도 합니다. 발판을' />
+        <line name='line_2' text='밟을 땐 서두르지 말고 정확히 밟고 내려오기, 꼭' />
+        <line name='line_3' text='기억하세요.' />
+    </array>
+
+    <array name='script_29_3'>
+        <line name='line_0' text='잘하셨습니다! 하차 전 양손에 있는 짐을 내려놓기,' />
+        <line name='line_1' text='잊지마세요!' />
+    </array>
+
+    <layer name='back_btn'
+        style='st_back_btn'
+        onclick.addevent='
+            loadscene(scene_28, , ,colorblend(0.5, 0x000000));
+        '
+    />
+
+    <layer name='cargoBox_title' url='%ROOT%/assets/cargobox/2_1_title.png'
+        style='st_small_title'
+    />
+
+    <layer name='cargobox_question_3'
+        url='%ROOT%/assets/cargobox/scene_29/cargobox_question_3.png'
+        style='st_questions'
+        script='script_25_1'
+    />
+
+    <action name='show_down_btn'>
+        looktohotspot(down_btn, 120);
+        tween(hotspot[down_btn].alpha, 1);
+        set(hotspot[down_btn].enabled, true);
+    </action>
+
+    <action name='enabled_setting1'>
+        set(hotspot[foot_rule].enabled, true);
+
+        tween(hotspot[push_click_btn].alpha, 1);
+    </action>
+
+    <action name='enabled_setting2'>
+        set(hotspot[hand_rule].enabled, true);
+        tween(hotspot[pull_click_btn].alpha, 1);
+    </action>
+
+    <hotspot name='cargobox_2' url='%ROOT%/assets/cargobox/cargobox_2.png'
+        style='style_drag_hotspot_distortion'
+        distorted='true'
+        enabled='false'
+        captuer='true'
+        ath="1.7076439295" atv="-0.0040018065" scale="0.1499999999999997" rx="0" ry="0" rz="0"
+    />
+
+    <hotspot name='cargobox_3' url='%ROOT%/assets/cargobox/cargobox_3.png'
+        style='style_drag_hotspot_distortion'
+        distorted='true'
+        enabled='false'
+        captuer='true'
+        ox='350'
+        ath="1.6537043969" atv="4.9495636179" scale="0.155" rx="0" ry="0" rz="0"
+    />
+
+    <hotspot name='down_box' url='%ROOT%/assets/cargobox/scene_29/down_box.png'
+        style='style_drag_hotspot_distortion'
+        distorted='true'
+        enabled='false'
+        captuer='true'
+        alpha='0'
+        ox='' oy=''
+        ath="42.9338834328" atv="50.0803274132" scale="0.25" rx="0" ry="0" rz="0"
+    />
+
+    <hotspot name='down_btn' url='%ROOT%/assets/cargobox/scene_29/down_btn.png'
+        style='style_drag_hotspot_distortion'
+        enabled='false'
+        alpha='0'
+        script='script_29_3'
+        ath="40.0452486478" atv="46.2428607157" scale="0.6"
+        onup='stoptween(oy); tween(oy, -10, 0.5, ,ondown());'
+        ondown='stoptween(oy); tween(oy, 10, 0.5, , onup());'
+        onloaded='onup();'
+        onclick='
+            stop_script(); stop_sound();
+            tween(alpha, 0);
+            set(enabled, false);
+            tween(hotspot[down_box].alpha, 1);
+            set(hotspot[foot_exp].enabled, true);
+            set(hotspot[left_exp].enabled, true);
+            playsound(down_box, get(sound_source[down_box].url), false, 1);
+            insert_script(get(script)); play_script();
+            playsound(narration_29_3, get(sound_source[narration_29_3].url), false, 1);
+        '
+    />
+    
+    <hotspot name='foot_exp'
+        style='st_icon_exp|style_drag_hotspot_distortion'
+        enabled='false'
+        alpha='1' autoalpha="true"
+        script='script_29_2'
+        click='true'
+        ath="0" atv="67.6537641165" scale="0.1"
+        linkedhotspot='foot_rule'
+        linkedhotspot_2='foot_video'
+        onclick.addevent='
+            set(enabled, false);
+            set(hotspot[left_exp].enabled, false);
+            stop_script();
+            stop_sound();
+            insert_script(get(script));
+            play_script();
+            playsound(narration_29_2, get(sound_source[narration_29_2].url), false, 1, enabled_setting1());
+            set(click, false);
+        '
+    />
+
+    <hotspot name='left_exp'
+        style='st_icon_exp|style_drag_hotspot_distortion'
+        enabled='false'
+        alpha='1' autoalpha="true"
+        script='script_29_1'
+        click='true'
+        ath="91.7838904195" atv="-2.1134829515" scale="0.1"
+        linkedhotspot='hand_rule'
+        onclick.addevent='
+            set(enabled, false);
+            set(hotspot[foot_exp].enabled, false);
+            stop_script();
+            stop_sound();
+            insert_script(get(script));
+            play_script();
+            playsound(narration_29_1, get(sound_source[narration_29_1].url), false, 1, enabled_setting2());
+            set(click, false);
+        '
+    />
+
+    <hotspot name='hand_rule' url='%ROOT%/assets/cargobox/scene_29/hand_rule.png'
+        style='st_20'
+        linkedhotspot='left_exp'
+        click='false'
+        ath="91.7838904195" atv="-2.1134829515"
+        onloaded.addevent='delayedcall(1, set(ox, calc(width*scale/2-200)););'
+        onclick.addevent='
+            stop_script();
+            stop_sound();
+            set(enabled, false);
+            set(hotspot[left_exp].enabled, true);
+            switch(alpha, 0, 1);
+            set(hotspot[foot_exp].enabled, true);
+            tween(hotspot[pull_click_btn].alpha, 0);
+            checked_icon();
+            set(click, true);
+            play_next_sound();
+        '
+    />
+
+    <hotspot name='foot_rule' url='%ROOT%/assets/cargobox/scene_29/foot_rule.png'
+        style='st_20'
+        linkedhotspot='foot_exp'
+        click='false'
+        ath="0" atv="67.6537641165"
+        onloaded.addevent='delayedcall(1, set(ox, calc(width*scale/2-200)););'
+        onclick.addevent='
+            stop_script();
+            stop_sound();
+            set(enabled, false);
+            set(hotspot[foot_exp].enabled, true);
+            switch(alpha, 0, 1);
+            set(hotspot[left_exp].enabled, true);
+            tween(hotspot[push_click_btn].alpha, 0);
+            checked_icon();
+            set(click, true);
+            play_next_sound();
+        '
+    />
+
+    <hotspot name='push_click_btn' url='%ROOT%/assets/rt/click.png'
+        style='st_roll|style_drag_hotspot_distortion'
+        enabled='false'
+        capture='false'
+        distorted='false'
+        alpha='0'
+        onup='tween(oy, -10, 0.5, ,ondown());'
+        ondown='tween(oy, 10, 0.5, , onup());'
+        onloaded='onup();'
+        ath="3.1655262628" atv="45.1648463801" scale="0.5"
+    />
+
+    <hotspot name='pull_click_btn' url='%ROOT%/assets/rt/click.png'
+        style='st_roll|style_drag_hotspot_distortion'
+        enabled='false'
+        capture='false'
+        distorted='false'
+        alpha='0'
+        onup='tween(oy, -10, 0.5, ,ondown());'
+        ondown='tween(oy, 10, 0.5, , onup());'
+        onloaded='onup();'
+        ath="94.0206180358" atv="-24.7160039482" scale="0.5"
+    />
+
+    <hotspot name='next_btn' 
+        style='st_next_btn|style_drag_hotspot_distortion'
+        alpha='0'
+        script='script_next'
+        ath="-0.5043951969" atv="25" scale="0.4"
+        onclick.addevent='
+            loadscene(scene_27, , ,colorblend(0.5, 0x000000));
+        '
+    />
+
+    <action name='play_next_sound'>
+        if(hotspot[hand_rule].click == true AND hotspot[foot_rule].click == true,
+            insert_script(get(hotspot[next_btn].script)); play_script();
+            playsound(narration_next, get(sound_source[narration_next].url), false, 1);
+        );
+    </action>
+</krpano>

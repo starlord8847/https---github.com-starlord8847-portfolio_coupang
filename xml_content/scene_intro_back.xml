@@ -1,0 +1,8 @@
+<krpano>
+    <hotspot name='back_title' url='%ROOT%/assets/intro/bg_back.png'
+        style='st_title'
+        enabled='false'
+        handcursor='false'
+        ath='180' atv=''
+    />
+</krpano>

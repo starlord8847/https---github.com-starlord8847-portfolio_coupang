@@ -1,0 +1,41 @@
+<krpano>
+    <events name='event_scene_26'
+        onnewpano='insert_script(script_26); narration_start();'
+        onremovepano='stop_sound(); stop_script(); set(layer[cargoBox_title].visible, false);'
+        onviewchange='copy(hotspot[next_btn].ath, view.hlookat);'
+    />
+
+    <action name='narration_start'>
+        play_script();
+        playsound(narration_26, get(sound_source[narration_26].url), false, 1, tween(hotspot[next_btn].alpha, 1));
+    </action>
+
+    <action name='stop_sound'>
+        if(sound[narration_26], sound[narration_26].stop());
+    </action>
+
+    <array name='script_26'>
+        <line name='line_0' text='수고하셨습니다. 무사히 적재함 작업을 완료하였습니다.' />
+        <line name='line_1' text='다음버튼을 눌러 이동해주세요.' />
+    </array>
+
+    <layer name='back_btn'
+        style='st_back_btn'
+        onclick.addevent='
+            loadscene(scene_30, , ,colorblend(0.5, 0x000000));
+        '
+    />
+
+    <layer name='cargoBox_title' url='%ROOT%/assets/cargobox/2_title.png'
+        style='st_small_title'
+    />
+
+
+
+    <hotspot name='next_btn' 
+        style='st_next_btn|style_drag_hotspot_distortion'
+        alpha='0'
+        ath="0" atv="25" scale="0.4"
+        onclick.addevent='loadscene(scene_32, , ,colorblend(0.5, 0x000000));'
+    />
+</krpano>
