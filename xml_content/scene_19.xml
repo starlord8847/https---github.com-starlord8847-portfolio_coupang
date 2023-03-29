@@ -16,6 +16,7 @@
         if(sound[narration_19_2], sound[narration_19_2].stop());
         if(sound[narration_19_3], sound[narration_19_3].stop());
         if(sound[narration_19_4], sound[narration_19_4].stop());
+        if(sound[narration_next], sound[narration_next].stop());
     </action>
 
     <array name='script_10'>
@@ -96,7 +97,7 @@
         set(hotspot[pull_btn].enabled, true);
         set(hotspot[push_btn].enabled, true);
         set(hotspot[pull_click_btn].checked, true);
-        set(hotspot[exit_video_2].enabled, true);
+        set(hotspot[pull_btn].checkedAgain, true);
 
         tween(hotspot[pull_click_btn].alpha, 0);
 
@@ -115,18 +116,16 @@
         set(hotspot[push_btn].enabled, true);
         set(hotspot[pull_btn].enabled, true);
         set(hotspot[push_click_btn].checked, true);
-        set(hotspot[exit_video_1].enabled, true);
+        set(hotspot[push_btn].checkedAgain, true);
 
         tween(hotspot[push_click_btn].alpha, 0);
 
-        if(hotspot[pull_click_btn].checked AND hotspot[push_click_btn].checked,
+        if(hotspot[push_btn].checkedAgain == true AND hotspot[pull_btn].checkedAgain == true,
+            tween(hotspot[next_btn].alpha, 1);
             stop_script(); stop_sound();
             insert_script(get(hotspot[next_btn].script));
             play_script();
             playsound(narration_next, get(sound_source[narration_next].url), false, 1);
-            tween(hotspot[next_btn].alpha, 1);
-            set(hotspot[push_click_btn].checked, false);
-            set(hotspot[pull_click_btn].checked, false);
         );
     </action>
 
@@ -178,7 +177,7 @@
         org_url='%ROOT%/assets/rt/push.png'
         change_url='%ROOT%/assets/rt/scene_19/RT2_wrong.png'
         style='st_btn|style_drag_hotspot_distortion'
-        checkedAgain='true'
+        checkedAgain='false'
         video='false'
         script='script_14'
         thenscript='script_13'
@@ -229,7 +228,7 @@
         change_url='%ROOT%/assets/rt/scene_19/RT2_correct.png'
         style='st_btn|style_drag_hotspot_distortion'
         script='script_12'
-        checkedAgain='true'
+        checkedAgain='false'
         video='true'
         test='false'
         thenscript='script_11'
@@ -253,15 +252,6 @@
 
             if(hotspot[get(linkedhotspot_2)],
                 switch(hotspot[get(linkedhotspot_2)].alpha, 0, 1); 
-            );
-
-            if(hotspot[pull_click_btn].checked AND hotspot[push_click_btn].checked,
-                stop_script(); stop_sound();
-                insert_script(get(hotspot[next_btn].script));
-                play_script();
-                playsound(narration_next, get(sound_source[narration_next].url), false, 1, tween(hotspot[next_btn].alpha, 1));
-                set(hotspot[push_click_btn].checked, false);
-                set(hotspot[pull_click_btn].checked, false);
             );
 
             if(hotspot[pull_btn].checked == true AND fliped == false,
@@ -315,7 +305,7 @@
         style='st_next_btn'
         ath="1.7065676467" atv="25" scale="0.4"
         script='script_next'
-        onclick.addevent='loadscene(scene_20, , ,colorblend(0.5, 0x000000));'
+        linkedscene='scene_20'
     />
 
     <hotspot name='push_click_btn' url='%ROOT%/assets/rt/click.png'
@@ -341,37 +331,6 @@
         ondown='tween(oy, 10, 0.5, , onup());'
         onloaded='onup();'
         ath="-34.3641178745" atv="-23.4286687528" scale="0.5"
-    />
-
-    <action name='checked_btn'>
-        set(btnCount, 0);
-        set(btncheck, 0);
-        set(hotspot[pull_btn].enabled, true);
-        set(hotspot[push_btn].enabled, true);
-        for(set(i, 0), i LT hotspot.count, inc(i),
-            if(hotspot[get(i)].tag == 'btn',
-                inc(btnCount);
-
-                if(hotspot[get(i)].clicked == true,
-                    inc(btncheck);
-                );
-            );
-        );
-
-        if(btncheck == btnCount,
-            tween(hotspot[next_btn].alpha, 1);
-            
-        );
-    </action>
-
-    <layer name='test'
-        type='text'
-        html='테스트버튼'
-        checked='false'
-        align='left'
-        edge='left'
-        ox='10'
-        onclick='testaction();'
     />
 
     <action name='testaction' scope='local'>

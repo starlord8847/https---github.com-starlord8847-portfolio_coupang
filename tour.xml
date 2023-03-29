@@ -6,9 +6,9 @@
 	<include url="%ROOT%/plugins/showtext.xml"/>
 
 
-	<include url="%ROOT%/xml_components/style_tour.xml" />
+	<!-- <include url="%ROOT%/xml_components/style_tour.xml" />
 	<include url="%ROOT%/xml_components/tour_addon.xml" />
-    <include url="%ROOT%/xml_components/viewcopy.xml" />
+    <include url="%ROOT%/xml_components/viewcopy.xml" /> -->
 
 	<!-- customize skin settings: maps, gyro, webvr, thumbnails, tooltips, layout, design, ... -->
 	<skin_settings maps="false"

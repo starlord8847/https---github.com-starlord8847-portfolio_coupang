@@ -322,10 +322,7 @@
         edge='top'
         script='script_25_2'
         ath="0" atv="25" scale="0.4"
-        onclick.addevent='
-            stop_script(); stop_sound();
-            loadscene(scene_28, , ,colorblend(0.5, 0x000000));
-        '
+        linkedscene='scene_28'
     />
 
     <!-- <hotspot name='center_green_zone_1'

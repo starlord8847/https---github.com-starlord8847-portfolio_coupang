@@ -378,7 +378,7 @@
         edge='top'
         script='script_32_next'
         ath="-37.1604217920" atv="25" scale="0.4"
-        onclick.addevent='loadscene(scene_33, , ,colorblend(0.5, 0x000000));'
+        linkedscene='scene_33'
     />
 
     <layer name='phone' url='%ROOT%/assets/camp/scene_32/org_phone.png'

@@ -139,7 +139,7 @@
         style='st_next_btn|style_drag_hotspot_distortion'
         ath="-33.0913243481" atv="25" scale="0.4"
         script='script_next'
-        onclick.addevent='loadscene(scene_16, , ,colorblend(0.5, 0x000000));'
+        linkedscene='scene_16'
     />
 
 </krpano>

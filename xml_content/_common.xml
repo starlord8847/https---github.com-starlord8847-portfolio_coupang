@@ -92,7 +92,7 @@
         autoalpha='1'
         alpha='0'
         scale='0.4'
-        capture='false'
+        capture='true'
         zoom='true'
         onover='copy(url, change_url);'
         onout='copy(url, org_url);'

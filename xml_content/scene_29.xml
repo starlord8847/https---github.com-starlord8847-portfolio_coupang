@@ -232,9 +232,7 @@
         alpha='0'
         script='script_next'
         ath="-0.5043951969" atv="25" scale="0.4"
-        onclick.addevent='
-            loadscene(scene_27, , ,colorblend(0.5, 0x000000));
-        '
+        linkedscene='scene_27'
     />
 
     <action name='play_next_sound'>

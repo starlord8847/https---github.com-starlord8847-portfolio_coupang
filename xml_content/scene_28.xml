@@ -125,6 +125,7 @@
             insert_script(get(hotspot[next_btn].script));
             play_script();
             playsound(narration_next, get(sound_source[narration_next].url), false, 1, tween(hotspot[next_btn].alpha, 1));
+            set(hotspot[next_btn].visible, true);
             set(hotspot[push_click_btn].checked, false);
             set(hotspot[pull_click_btn].checked, false);
         );
@@ -142,6 +143,7 @@
             insert_script(get(hotspot[next_btn].script));
             play_script();
             playsound(narration_next, get(sound_source[narration_next].url), false, 1, tween(hotspot[next_btn].alpha, 1));
+            set(hotspot[next_btn].visible, true);
             set(hotspot[push_click_btn].checked, false);
             set(hotspot[pull_click_btn].checked, false);
         );
@@ -367,11 +369,8 @@
     <hotspot name='next_btn' 
         style='st_next_btn|style_drag_hotspot_distortion'
         script='script_next'
-        alpha='0'
         ath="90.9467882154" atv="25" scale="0.4"
-        onclick.addevent='
-            loadscene(scene_29, , ,colorblend(0.5, 0x000000));
-        '
+        linkedscene='scene_29'
     />
     
 </krpano>

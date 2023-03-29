@@ -6,9 +6,11 @@
                 narration_start();
             );
             show_check(); change_html();
+            set(hotspot[next_btn_1].visible, false);
+
         '
         onremovepano='stop_sound(); hide_check();'
-        onviewchange='copy(hotspot[next_btn].ath, view.hlookat);'
+        onviewchange='copy(hotspot[next_btn_1].ath, view.hlookat);'
     />
 
     <array name='script_20'>
@@ -363,14 +365,15 @@
 
     <action name='play_next' scope='local'>
         if(hotspot[foot_rule].check == true AND hotspot[phone_rule].check == true AND hotspot[right_rule].check == true,
-            tween(hotspot[next_btn].alpha, 1);
-            insert_script(get(hotspot[next_btn].script));
+            tween(hotspot[next_btn_1].alpha, 1);
+            set(hotspot[next_btn_1].visible, true);
+            insert_script(get(hotspot[next_btn_1].script));
             play_script();
             playsound(narration_next, get(sound_source[narration_next].url), false, 1);
         );
     </action>
 
-    <hotspot name='next_btn' 
+    <hotspot name='next_btn_1' 
         style='st_next_btn|style_drag_hotspot_distortion'
         script='script_next'
         ath="-4.5013052754" atv="25" scale="0.4"
