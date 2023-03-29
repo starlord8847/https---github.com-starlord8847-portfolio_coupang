@@ -76,13 +76,13 @@
     /> -->
 
     <action name='flipping' scope='local'>
-        if(caller.fliped,
-            tween(caller.ry, 360,,,
+        if(!caller.fliped,
+            <!-- tween(caller.ry, 360,,,
                 set(caller.fliped, false);
             );
-        ,
+        , -->
             tween(caller.ry, 360,,,
-                set(caller.fliped, true);
+                <!-- set(caller.fliped, true); -->
             );
             delayedcall(delayedcall_next,0.25,
                 copy(caller.url, caller.change_url);
@@ -94,18 +94,40 @@
 
     <action name='enabled_pull'>
         set(hotspot[pull_btn].enabled, true);
+        set(hotspot[push_btn].enabled, true);
         set(hotspot[pull_click_btn].checked, true);
         set(hotspot[exit_video_2].enabled, true);
 
-        tween(hotspot[pull_click_btn].alpha, 1);
+        tween(hotspot[pull_click_btn].alpha, 0);
+
+        if(hotspot[pull_click_btn].checked AND hotspot[push_click_btn].checked,
+            stop_script(); stop_sound();
+            insert_script(get(hotspot[next_btn].script));
+            play_script();
+            playsound(narration_next, get(sound_source[narration_next].url), false, 1);
+            tween(hotspot[next_btn].alpha, 1);
+            set(hotspot[push_click_btn].checked, false);
+            set(hotspot[pull_click_btn].checked, false);
+        );
     </action>
 
     <action name='enabled_push'>
         set(hotspot[push_btn].enabled, true);
+        set(hotspot[pull_btn].enabled, true);
         set(hotspot[push_click_btn].checked, true);
         set(hotspot[exit_video_1].enabled, true);
 
-        tween(hotspot[push_click_btn].alpha, 1);
+        tween(hotspot[push_click_btn].alpha, 0);
+
+        if(hotspot[pull_click_btn].checked AND hotspot[push_click_btn].checked,
+            stop_script(); stop_sound();
+            insert_script(get(hotspot[next_btn].script));
+            play_script();
+            playsound(narration_next, get(sound_source[narration_next].url), false, 1);
+            tween(hotspot[next_btn].alpha, 1);
+            set(hotspot[push_click_btn].checked, false);
+            set(hotspot[pull_click_btn].checked, false);
+        );
     </action>
 
     <layer name='back_btn'
@@ -157,17 +179,19 @@
         change_url='%ROOT%/assets/rt/scene_19/RT2_wrong.png'
         style='st_btn|style_drag_hotspot_distortion'
         checkedAgain='true'
+        video='false'
         script='script_14'
         thenscript='script_13'
         linkedhotspot='wrong_video'
         linkedhotspot_2='exit_video_2'
         ox='-355'
         onclick='
+            testaction();
             stop_script(); stop_sound();
             looktohotspot(get(name),120);
             callwith(hotspot[wrong_video], onclick());
             set(clicked, true);
-            switch(hotspot[get(linkedhotspot)].alpha, 0, 1);
+            
             tween(hotspot[pull_click_btn].alpha, 0);
             set(hotspot[push_btn].enabled, false);
             set(enabled, false);
@@ -180,14 +204,6 @@
                 switch(hotspot[get(linkedhotspot_2)].alpha, 0, 1); 
             );
 
-            if(hotspot[pull_click_btn].checked AND hotspot[push_click_btn].checked,
-                stop_script(); stop_sound();
-                insert_script(get(hotspot[next_btn].script));
-                play_script();
-                playsound(narration_next, get(sound_source[narration_next].url), false, 1, tween(hotspot[next_btn].alpha, 1));
-                set(hotspot[push_click_btn].checked, false);
-                set(hotspot[pull_click_btn].checked, false);
-            );
 
             if(hotspot[push_btn].checked == true AND fliped == false,
                 insert_script(get(thenscript)); play_script();
@@ -205,6 +221,7 @@
             flipping();
         '
     />
+
     
     <hotspot name='push_btn'
         url='%ROOT%/assets/rt/pull.png'
@@ -213,18 +230,19 @@
         style='st_btn|style_drag_hotspot_distortion'
         script='script_12'
         checkedAgain='true'
+        video='true'
         test='false'
         thenscript='script_11'
         linkedhotspot='correct_video'
         linkedhotspot_2='exit_video_1'
         ox='355'
         onclick='
+            testaction();
             callwith(hotspot[correct_video], onclick());
             stop_script(); stop_sound();
             looktohotspot(get(name),120);    
             
             set(clicked, true);
-            switch(hotspot[get(linkedhotspot)].alpha, 0, 1);
             tween(hotspot[push_click_btn].alpha, 0);
             set(hotspot[pull_btn].enabled, false);
             set(enabled, false);
@@ -343,6 +361,26 @@
         if(btncheck == btnCount,
             tween(hotspot[next_btn].alpha, 1);
             
+        );
+    </action>
+
+    <layer name='test'
+        type='text'
+        html='테스트버튼'
+        checked='false'
+        align='left'
+        edge='left'
+        ox='10'
+        onclick='testaction();'
+    />
+
+    <action name='testaction' scope='local'>
+        if(caller.video,
+            set(hotspot[correct_video].alpha, 1);
+            set(hotspot[wrong_video].alpha, 0);
+        ,
+            set(hotspot[wrong_video].alpha, 1);
+            set(hotspot[correct_video].alpha, 0);
         );
     </action>
 

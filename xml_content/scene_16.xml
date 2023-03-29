@@ -20,7 +20,8 @@
 
     <action name='looktoANDnarration'>
         lookto(149.95319115916737, 0);
-        playsound(narration_16_2, get(sound_source[narration_16_2].url), false, 1, tween(hotspot[next_btn].alpha, 1));
+        playsound(narration_16_2, get(sound_source[narration_16_2].url), false, 1);
+        tween(hotspot[next_btn].alpha, 1);
     </action>
 
     <array name='script_23'>

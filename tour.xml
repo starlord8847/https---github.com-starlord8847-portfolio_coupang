@@ -257,7 +257,7 @@
 			fov="120" 
 			maxpixelzoom="2.0" 
 			fovmin="70" 
-			fovmax="140" 
+			fovmax="120" 
 			limitview="lookat" 
 			hlookatmin='-70'
 			hlookatmax='70'

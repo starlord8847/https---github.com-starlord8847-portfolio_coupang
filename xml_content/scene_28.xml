@@ -1,7 +1,7 @@
 <krpano>
     <events name='event_scene_28'
         onnewpano='lookat(90.7, 0); insert_script(script_28); narration_start(); visible_card();'
-        onremovepano='stop-script(); stop_sound();'
+        onremovepano='stop_script(); stop_sound();'
         onviewchange='copy(hotspot[next_btn].ath, view.hlookat);'
     />
 
@@ -119,7 +119,15 @@
         set(hotspot[push_btn].enabled, true);
         set(hotspot[pull_click_btn].checked, true);
 
-        tween(hotspot[pull_click_btn].alpha, 1);
+        tween(hotspot[pull_click_btn].alpha, 0);
+
+        if(hotspot[pull_click_btn].checked AND hotspot[push_click_btn].checked,
+            insert_script(get(hotspot[next_btn].script));
+            play_script();
+            playsound(narration_next, get(sound_source[narration_next].url), false, 1, tween(hotspot[next_btn].alpha, 1));
+            set(hotspot[push_click_btn].checked, false);
+            set(hotspot[pull_click_btn].checked, false);
+        );
     </action>
 
     <action name='enabled_push'>
@@ -128,7 +136,15 @@
         set(hotspot[push_btn].enabled, true);
         set(hotspot[push_click_btn].checked, true);
 
-        tween(hotspot[push_click_btn].alpha, 1);
+        tween(hotspot[push_click_btn].alpha, 0);
+
+        if(hotspot[pull_click_btn].checked AND hotspot[push_click_btn].checked,
+            insert_script(get(hotspot[next_btn].script));
+            play_script();
+            playsound(narration_next, get(sound_source[narration_next].url), false, 1, tween(hotspot[next_btn].alpha, 1));
+            set(hotspot[push_click_btn].checked, false);
+            set(hotspot[pull_click_btn].checked, false);
+        );
     </action>
 
     <hotspot name='cargobox_2' url='%ROOT%/assets/cargobox/cargobox_2.png'
@@ -197,15 +213,10 @@
 
             if(fliped == true,
                 set(hotspot[push_btn].enabled, true);
+                
             );
 
-            if(hotspot[pull_click_btn].checked AND hotspot[push_click_btn].checked,
-                insert_script(get(hotspot[next_btn].script));
-                play_script();
-                playsound(narration_next, get(sound_source[narration_next].url), false, 1, tween(hotspot[next_btn].alpha, 1));
-                set(hotspot[push_click_btn].checked, false);
-                set(hotspot[pull_click_btn].checked, false);
-            );
+            
 
             if(hotspot[push_btn].checked == true AND fliped == false,
                 insert_script(get(thenscript)); play_script();
@@ -250,7 +261,8 @@
             );
 
             if(fliped == true,
-                
+                set(hotspot[pull_btn].enabled, true);
+                trace("이거 작동 안대?");
             );
 
             if(hotspot[pull_click_btn].checked AND hotspot[push_click_btn].checked,

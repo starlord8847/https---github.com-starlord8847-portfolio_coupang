@@ -49,7 +49,7 @@
         style='st_black'
         width="get:stagewidth" height="get:stageheight"
         bg='true' bgcolor='0x000000' bgalpha='0.4'
-        onclick="close_bg(); narration_start();"
+        onclick="close_bg(); narration_start(); playsound(intro_background, get(sound_source[intro_background].url), true, 0.1);"
     />
 
     <layer name='black_tooltip' url='%ROOT%/assets/intro/init_help.png'

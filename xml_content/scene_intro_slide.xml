@@ -3,7 +3,7 @@
     <events name='events_slides'
         onnewpano='loadSlide()'
         onresize='callwith(layer[bg_black], onResize)'
-        onkeyup='detectKeyForShortcuts()'
+        onkeyup=''
     />
 
     <slide_settings scale='0.7' currentIdx='0'
@@ -41,7 +41,9 @@
         esc 키 27 -->
         if(keycode == 27, callwith(layer[slide], onHide); ); <!-- 왼쪽 방향키 : 37 --> if(keycode == 37, goNextSlide(-1); ); <!--
         오른쪽 방향키 : 39 -->
-        if(keycode == 39, goNextSlide(1); ); </action>
+        if(keycode == 39, goNextSlide(1); ); 
+    </action>
+    
     <action name='showSlide' scope='local' args='index'>
         if(index != null,
         copy(slide_settings.currentIdx, index);

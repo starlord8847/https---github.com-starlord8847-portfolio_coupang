@@ -7,7 +7,8 @@
 
     <action name='narration_start'>
         play_script();
-        playsound(narration_27, get(sound_source[narration_27].url), false, 1, tween(hotspot[next_btn].alpha, 1));
+        playsound(narration_27, get(sound_source[narration_27].url), false, 1);
+        tween(hotspot[next_btn].alpha, 1);
     </action>
 
     <action name='stop_sound'>

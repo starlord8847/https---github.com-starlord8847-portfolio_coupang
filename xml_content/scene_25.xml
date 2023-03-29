@@ -176,7 +176,10 @@
     <!-- onshow='tween(alpha, 1, , , onhide());' 
         onhide='tween(alpha, 0, , , onshow());' 
         onloaded='' -->
-
+    <action name='show_next'>
+        tween(hotspot[next_btn].alpha, 1);
+        playsound(narration_next, get(sound_source[narration_next].url), false, 1);
+    </action>
     <hotspot name='footer_correct' 
         videourl='%ROOT%/assets/video/cargobox_video/footer_correct.mp4'
         style='st_rules_video'
@@ -190,14 +193,14 @@
         script='script_25_3'
         onclick.addevent='
             set(alpha, 0);
-            tween(hotspot[next_btn].alpha, 1);
+            
             set(hotspot[red_zone_1].enabled, false);
             set(hotspot[red_zone_2].enabled, false);
             tween(hotspot[click_btn].alpha, 0);
 
             insert_script(get(script)); play_script();
             playsound(click_2, get(sound_source[click_2].url), false, 1);
-            playsound(narration_next, get(sound_source[narration_25_3].url), false, 1);
+            playsound(narration_25_3, get(sound_source[narration_25_3].url), false, 1, show_next());
         '
     />
 

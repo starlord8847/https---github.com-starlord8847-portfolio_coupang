@@ -75,6 +75,7 @@
                     copy(caller.url, caller.org_url);
                 );
             , -->
+                set(caller.enabled, false);
                 tween(caller.ry, 360,,,
                     set(caller.fliped, true);
                 );
@@ -99,7 +100,7 @@
         style='st_btn|style_drag_hotspot_distortion'
         script='script_8'
         thenscript='script_6'
-        ox='135'
+        ox='355'
         onclick='
             stop_script();
             looktohotspot(get(name),120);
@@ -140,7 +141,7 @@
         linkedhotspot='correct_video'
         linkedhotspot_2='exit_video_1'
         next='false'
-        ox='-135'
+        ox='-355'
         onclick='
             stop_script();
             stop_sound();
@@ -158,7 +159,7 @@
             tween(hotspot[click_btn].alpha, 0);
             flipping();
             if(fliped == true,
-                play_next();
+                
             ,
                 insert_script(get(thenscript)); play_script();
                 playsound(narration_17_1, get(sound_source[narration_17_1].url), false, 1, enabled_set());
@@ -168,10 +169,13 @@
     />
 
     <action name='enabled_set'>
-        set(hotspot[push_btn].enabled, true);
-        set(hotspot[pull_btn].enabled, true);
         set(hotspot[exit_video_1].enabled, true);
-        tween(hotspot[click_btn].alpha, 1);
+        tween(hotspot[click_btn].alpha, 0);
+        tween(hotspot[next_btn].alpha, 1);
+        insert_script(get(hotspot[next_btn].script));
+        set(hotspot[push_btn].fliped, false);
+        play_script();
+        playsound(narration_next, get(sound_source[narration_next].url), false, 1, pull_action());
     </action>
 
     <action name='play_next'>
@@ -185,7 +189,7 @@
 
     <action name='pull_action'>
         set(hotspot[pull_btn].enabled, true);
-        tween(hotspot[next_btn].alpha, 1);
+        set(hotspot[push_btn].enabled, true);
     </action>
 
     <!-- if(hotspot[pull_btn].checked == true,
@@ -226,10 +230,11 @@
         posturl='%ROOT%/assets/video/RT_video/RT_1_correct.jpg'
         enabled='false'
         alpha='0'
-        edge='left'
-        ox='-16'
+        edge='center'
+        ox='0'
         ath="0" atv="0" scale="0.245" rx="0" ry="0" rz="0"
         linkedhotspot='push_btn'
+        onloaded.addevent='delayedcall(3, set(ox, calc(-374 + hotspot[push_btn].width*hotspot[push_btn].scale/2 + width*scale/2)););'
     />
     
 

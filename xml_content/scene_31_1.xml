@@ -85,7 +85,8 @@
         set(hotspot[pull_btn].enabled, true);
         insert_script(get(hotspot[next_btn].script));
         play_script();
-        playsound(narration_next, get(sound_source[narration_next].url), false, tween(hotspot[next_btn].alpha, 1));
+        playsound(narration_next, get(sound_source[narration_next].url), false);
+        tween(hotspot[next_btn].alpha, 1);
     </action>
 
     <action name='flipping' scope='local'>
