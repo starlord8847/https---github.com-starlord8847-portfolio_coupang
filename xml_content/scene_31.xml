@@ -117,7 +117,7 @@
         set(hotspot[push_btn].enabled, true);
         set(hotspot[pull_btn].enabled, true);
 
-        if(hotspot[push_btn].checked AND !checked,
+        if(hotspot[push_btn].checked,
             insert_script(get(hotspot[next_btn].script));
             play_script();
             playsound(narration_next, get(sound_source[narration_next].url), false);

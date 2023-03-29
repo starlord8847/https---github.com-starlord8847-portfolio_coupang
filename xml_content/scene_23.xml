@@ -11,6 +11,8 @@
 
     <action name='stop_sound'>
         if(sound[narration_23_1], sound[narration_23_1].stop());
+        if(sound[narration_22_4], sound[narration_22_4].stop());
+        if(sound[narration_23_2], sound[narration_23_2].stop());
         if(sound[narration_next], sound[narration_next].stop());
     </action>
 

@@ -190,6 +190,7 @@
     <sound_source name='narration_13_1' url='%ROOT%/assets/narration/narration_13_1.mp3' />
     <sound_source name='narration_13_2' url='%ROOT%/assets/narration/narration_13_2.mp3' />
     <sound_source name='narration_13_3' url='%ROOT%/assets/narration/narration_13_3.mp3' />
+    <sound_source name='narration_13_4' url='%ROOT%/assets/narration/narration_13_4.mp3' />
     <sound_source name='narration_14' url='%ROOT%/assets/narration/narration_14.mp3' />
     <sound_source name='narration_15' url='%ROOT%/assets/narration/narration_15.mp3' />
     <sound_source name='narration_16' url='%ROOT%/assets/narration/narration_16.mp3' />
@@ -277,6 +278,7 @@
         if(sound[narration_13_1], sound[narration_13_1].stop(); );
         if(sound[narration_13_2], sound[narration_13_2].stop(); );
         if(sound[narration_13_3], sound[narration_13_3].stop(); );
+        if(sound[narration_13_4], sound[narration_13_4].stop(); );
         if(sound[narration_14], sound[narration_14].stop(); );
         if(sound[narration_15], sound[narration_15].stop(); );
         if(sound[narration_16], sound[narration_16].stop(); );

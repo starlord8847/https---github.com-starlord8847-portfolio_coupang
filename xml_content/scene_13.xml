@@ -1,11 +1,14 @@
 <krpano>
     <events name='event_scene_13'
-        onnewpano='insert_script(script_3); narration_start(); show_back_btn();'
+        onnewpano='insert_script(script_13); narration_start(); show_back_btn();'
         onremovepano='stop_sound(); stop_script();'
     />
-    <array name='script_3'>
+    <array name='script_13'>
         <line name='line_0' text='화면의 보이는 세 종류의 롤테이너를 화면 뒤쪽으로 이동해 보도록 하겠습니다.' />
-        <line name='line_1' text='가운데 롤테이너를 클릭해주세요.' />
+    </array>
+
+    <array name='script_13_1'>
+        <line name='line_0' text='가운데 롤테이너를 클릭해주세요.' />
     </array>
 
     <action name='narration_start'>
@@ -18,15 +21,19 @@
     </action>
 
     <action name='stop_sound'>
+        if(sound[narration_13], sound[narration_13].stop());
         if(sound[narration_13_1], sound[narration_13_1].stop());
         if(sound[narration_13_2], sound[narration_13_2].stop());
         if(sound[narration_13_3], sound[narration_13_3].stop());
+        if(sound[narration_13_4], sound[narration_13_4].stop());
     </action>
 
     <action name='looktoANDnarration'>
         lookto(149.46765376130222, 0);
         delayedcall(3,
             narrationANDlookto();
+            insert_script(script_13_1); play_script();
+            playsound(narration_13_4, get(sound_source[narration_13_4].url), false, 1);
         );
         
     </action>
