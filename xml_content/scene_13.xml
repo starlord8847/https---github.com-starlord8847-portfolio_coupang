@@ -4,15 +4,17 @@
         onremovepano='stop_sound(); stop_script();'
     />
     <array name='script_3'>
-        <line name='line_0' text='화면의 보이는 세 종류의 롤테이너를' />
-        <line name='line_1' text='화면 뒤쪽으로 이동해 보도록 하겠습니다.' />
-        <line name='line_2' text='가운데 롤테이너를 클릭해주세요.' />
+        <line name='line_0' text='화면의 보이는 세 종류의 롤테이너를 화면 뒤쪽으로 이동해 보도록 하겠습니다.' />
+        <line name='line_1' text='가운데 롤테이너를 클릭해주세요.' />
     </array>
 
     <action name='narration_start'>
         play_script();
-        playsound(narration_13_1, get(sound_source[narration_13_1].url), false, 1, looktoANDnarration());
+        playsound(narration_13, get(sound_source[narration_13].url), false, 1);
         playsound(camp_background, get(sound_source[camp_background].url), true, 0.3);
+        delayedcall(1.5,
+            looktoANDnarration();
+        );
     </action>
 
     <action name='stop_sound'>
@@ -23,12 +25,15 @@
 
     <action name='looktoANDnarration'>
         lookto(149.46765376130222, 0);
-        playsound(narration_13_2, get(sound_source[narration_13_2].url), false, 1, narrationANDlookto());
+        delayedcall(3,
+            narrationANDlookto();
+        );
+        
     </action>
 
     <action name='narrationANDlookto'>
         lookto(0, 0);
-        playsound(narration_13_3, get(sound_source[narration_13_3].url), false, 1, setting_visible_alpha());
+        setting_visible_alpha();
     </action>
 
     <action name='setting_visible_alpha'>
@@ -98,4 +103,25 @@
         <point ath="-8.271437397676777" atv="19.501659605244647"/>
     </hotspot>
 
+    <!-- <action name='narration_start'>
+        play_script();
+        playsound(narration_13_1, get(sound_source[narration_13_1].url), false, 1, looktoANDnarration());
+        playsound(camp_background, get(sound_source[camp_background].url), true, 0.3);
+    </action>
+
+    <action name='stop_sound'>
+        if(sound[narration_13_1], sound[narration_13_1].stop());
+        if(sound[narration_13_2], sound[narration_13_2].stop());
+        if(sound[narration_13_3], sound[narration_13_3].stop());
+    </action>
+
+    <action name='looktoANDnarration'>
+        lookto(149.46765376130222, 0);
+        playsound(narration_13_2, get(sound_source[narration_13_2].url), false, 1, narrationANDlookto());
+    </action>
+
+    <action name='narrationANDlookto'>
+        lookto(0, 0);
+        playsound(narration_13_3, get(sound_source[narration_13_3].url), false, 1, setting_visible_alpha());
+    </action> -->
 </krpano>
