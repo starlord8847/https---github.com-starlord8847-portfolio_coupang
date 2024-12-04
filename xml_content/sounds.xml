@@ -2,7 +2,7 @@
     <events name='event_sounds'
         keep='true'
         onnewpano=''
-        onremovepano='stop_all_sound'
+        onremovepano='stop_all_sound();'
         onviewchange='follow_script()'
         lastscript=''
     />

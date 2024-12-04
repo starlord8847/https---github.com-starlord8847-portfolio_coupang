@@ -208,15 +208,6 @@
         script='script_25_1'
     />
 
-
-    <action name='test'>
-        if(hotspot[pull_btn].clicked == true AND hotspot[push_btn].clicked == true,
-            tween(hotspot[next_btn].alpha, 1);
-            insert_script(get(hotspot[next_btn].script));
-            play_script();
-        );
-    </action>
-
     <action name='checked_btn'>
         set(btnCount, 0);
         set(btncheck, 0);
